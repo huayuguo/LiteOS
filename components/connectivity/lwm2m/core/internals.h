@@ -147,7 +147,8 @@
 ((S) == STATE_REGISTER_REQUIRED ? "STATE_REGISTER_REQUIRED" :        \
 ((S) == STATE_REGISTERING ? "STATE_REGISTERING" :      \
 ((S) == STATE_READY ? "STATE_READY" :      \
-"Unknown"))))))
+((S) == STATE_DELAY ? "STATE_DELAY" :  \
+"Unknown")))))))
 #else
 #define UNUSEX(x) (x)=(x)
 #define LOG_ARG(FMT, ...)

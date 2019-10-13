@@ -2152,9 +2152,12 @@ HAL_StatusTypeDef HAL_ETH_ConfigDMA(ETH_HandleTypeDef *heth, ETH_DMAInitTypeDef 
   * @{
   */
 HAL_ETH_StateTypeDef HAL_ETH_GetState(ETH_HandleTypeDef *heth);
+<<<<<<< HEAD
 
 HAL_StatusTypeDef HAL_ETH_EnableMulticastMacAddr(ETH_HandleTypeDef *heth, uint32_t mac_addr, uint8_t *addr, uint32_t bitmap);
 
+=======
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 /**
   * @}
   */

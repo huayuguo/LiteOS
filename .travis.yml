@@ -14,7 +14,24 @@ before_install:
 
 
 script:
+<<<<<<< HEAD
   -  cd targets/Cloud_STM32F429IGTx_FIRE/GCC
+=======
+  -  cd targets/Standard_FRDM_KW41Z/GCC
+  -  make
+  -  cd ../../../
+  -  cd targets/Standard_STM32F103RB_NUCLEO/GCC
+  -  make
+  -  cd ../../../
+  -  cd targets/Cloud_STM32F429IGTx_FIRE/GCC
+  -  make
+  -  cd ../GCC_MQTT
+  -  make
+  -  cd ../GCC-Bootloader
+  -  make
+  -  cd ../../../
+  -  cd targets/Standard_STM32F746ZG_NUCLEO/GCC
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
   -  make
 
 

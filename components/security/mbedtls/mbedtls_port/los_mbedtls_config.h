@@ -97,6 +97,12 @@
 #define MBEDTLS_SHA1_C
 #endif
 
+#ifdef USE_MRVL_SDIO_WIFI
+#define MBEDTLS_ARC4_C
+#define MBEDTLS_MD5_C
+#define MBEDTLS_SHA1_C
+#endif
+
 #define MBEDTLS_PLATFORM_C
 #define MBEDTLS_ENTROPY_HARDWARE_ALT
 #define MBEDTLS_NO_PLATFORM_ENTROPY
@@ -146,7 +152,11 @@
         MBEDTLS_TLS_PSK_WITH_AES_128_CBC_SHA256
 #endif
 
+<<<<<<< HEAD
 #if defined(CONFIG_FEATURE_FOTA) ||  defined(WITH_SOTA)
+=======
+#ifdef CONFIG_FEATURE_FOTA
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 #define MBEDTLS_RSA_C
 #define MBEDTLS_BIGNUM_C
 #define MBEDTLS_OID_C

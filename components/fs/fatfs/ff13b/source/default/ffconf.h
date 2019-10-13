@@ -1,7 +1,10 @@
 /*---------------------------------------------------------------------------/
 /  FatFs - Configuration file
 /---------------------------------------------------------------------------*/
+<<<<<<< HEAD
 #include "fs/los_vfs.h"
+=======
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 
 #define FFCONF_DEF 63463	/* Revision ID */
 
@@ -26,7 +29,11 @@
 /   3: f_lseek() function is removed in addition to 2. */
 
 
+<<<<<<< HEAD
 #define FF_USE_STRFUNC	2
+=======
+#define FF_USE_STRFUNC	0
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 /* This option switches string functions, f_gets(), f_putc(), f_puts() and f_printf().
 /
 /  0: Disable string functions.
@@ -39,11 +46,19 @@
 /  f_findnext(). (0:Disable, 1:Enable 2:Enable with matching altname[] too) */
 
 
+<<<<<<< HEAD
 #define FF_USE_MKFS		1
 /* This option switches f_mkfs() function. (0:Disable or 1:Enable) */
 
 
 #define FF_USE_FASTSEEK	1
+=======
+#define FF_USE_MKFS		0
+/* This option switches f_mkfs() function. (0:Disable or 1:Enable) */
+
+
+#define FF_USE_FASTSEEK	0
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 /* This option switches fast seek function. (0:Disable or 1:Enable) */
 
 
@@ -69,7 +84,11 @@
 / Locale and Namespace Configurations
 /---------------------------------------------------------------------------*/
 
+<<<<<<< HEAD
 #define FF_CODE_PAGE	936
+=======
+#define FF_CODE_PAGE	932
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 /* This option specifies the OEM code page to be used on the target system.
 /  Incorrect code page setting can cause a file open failure.
 /
@@ -98,8 +117,13 @@
 */
 
 
+<<<<<<< HEAD
 #define FF_USE_LFN		2
 #define FF_MAX_LFN		LOS_MAX_DIR_NAME_LEN
+=======
+#define FF_USE_LFN		0
+#define FF_MAX_LFN		255
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 /* The FF_USE_LFN switches the support for LFN (long file name).
 /
 /   0: Disable LFN. FF_MAX_LFN has no effect.
@@ -192,7 +216,11 @@
 
 
 #define FF_MIN_SS		512
+<<<<<<< HEAD
 #define FF_MAX_SS		4096
+=======
+#define FF_MAX_SS		512
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 /* This set of options configures the range of sector size to be supported. (512,
 /  1024, 2048 or 4096) Always set both 512 for most systems, generic memory card and
 /  harddisk. But a larger value may be required for on-board flash memory and some
@@ -251,7 +279,11 @@
 /  These options have no effect at read-only configuration (FF_FS_READONLY = 1). */
 
 
+<<<<<<< HEAD
 #define FF_FS_LOCK	 LOS_MAX_FILES
+=======
+#define FF_FS_LOCK		0
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 /* The option FF_FS_LOCK switches file lock function to control duplicated file open
 /  and illegal operation to open objects. This option must be 0 when FF_FS_READONLY
 /  is 1.
@@ -260,8 +292,12 @@
 /      should avoid illegal open, remove and rename to the open objects.
 /  >0: Enable file lock function. The value defines how many files/sub-directories
 /      can be opened simultaneously under file lock control. Note that the file
+<<<<<<< HEAD
 /      lock control is independent of re-entrancy.
 /      This value should be no more than LOS_MAX_FILES in los_vfs.h */
+=======
+/      lock control is independent of re-entrancy. */
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 
 
 #define FF_FS_REENTRANT	0
@@ -284,6 +320,7 @@
 /  SemaphoreHandle_t and etc. A header file for O/S definitions needs to be
 /  included somewhere in the scope of ff.h. */
 
+<<<<<<< HEAD
 
 #define FF_PHYS_ADDR    0
 /* Physical offset(in bytes) in spi flash used for FatFs
@@ -292,6 +329,10 @@
 #define FF_PHYS_SIZE    0x100000
 /* Physical size(in bytes) of the spi flash used for FatFs
 /  Must be on 4k boundary */
+=======
+/* #include <windows.h>	// O/S definitions  */
+
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 
 
 /*--- End of configuration options ---*/

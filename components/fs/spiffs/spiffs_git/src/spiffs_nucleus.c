@@ -2537,7 +2537,11 @@ static u32_t spiffs_hash(spiffs *fs, const u8_t *name)
     u32_t hash = 5381;
     u8_t c;
     int i = 0;
+<<<<<<< HEAD
     while (0 != (c = name[i++]) && i < SPIFFS_OBJ_NAME_LEN)
+=======
+    while ((c = name[i++]) && i < SPIFFS_OBJ_NAME_LEN)
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
     {
         hash = (hash * 33) ^ c;
     }

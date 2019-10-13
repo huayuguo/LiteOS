@@ -222,6 +222,10 @@
                     <name>CCDefines</name>
                     <state>STM32F429xx</state>
                     <state>USE_HAL_DRIVER</state>
+<<<<<<< HEAD
+=======
+                    <state>USE_MBED_TLS</state>
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
                     <state>MBEDTLS_CONFIG_FILE=&lt;los_mbedtls_config.h&gt;</state>
                     <state>LWM2M_LITTLE_ENDIAN</state>
                     <state>LWM2M_CLIENT_MODE</state>
@@ -230,8 +234,11 @@
                     <state>_DLIB_FILE_DESCRIPTOR</state>
                     <state>WITH_LWIP</state>
                     <state>CONFIG_FEATURE_FOTA</state>
+<<<<<<< HEAD
                     <state>LWM2M_WITH_LOGS</state>
                     <state>ATINY_DEBUG</state>
+=======
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
                 </option>
                 <option>
                     <name>CCPreprocFile</name>
@@ -358,14 +365,21 @@
                     <name>CCIncludePath2</name>
                     <state>$TOOLKIT_DIR$\CMSIS\Core\Include</state>
                     <state>$PROJ_DIR$\..\Inc</state>
+<<<<<<< HEAD
                     <state>$PROJ_DIR$\..\..\..\osdepends\liteos\cmsis</state>
                     <state>$PROJ_DIR$\..\..\..\osdepends\liteos\cmsis\1.0</state>
                     <state>$PROJ_DIR$\..\..\..\osdepends\liteos\cmsis\2.0</state>
+=======
+                    <state>$PROJ_DIR$\..\..\..\components\cmsis</state>
+                    <state>$PROJ_DIR$\..\..\..\components\cmsis\1.0</state>
+                    <state>$PROJ_DIR$\..\..\..\components\cmsis\2.0</state>
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
                     <state>$PROJ_DIR$\..\..\..\kernel\base\include</state>
                     <state>$PROJ_DIR$\..\..\..\kernel\include</state>
                     <state>$PROJ_DIR$\..\OS_CONFIG</state>
                     <state>$PROJ_DIR$\..\..\..\arch\arm\arm-m\include</state>
                     <state>$PROJ_DIR$\..\..\..\arch\arm\arm-m\cortex-m4</state>
+<<<<<<< HEAD
                     <state>$PROJ_DIR$\..\..\..\demos</state>
                     <state>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Inc</state>
                     <state>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Inc\Legacy</state>
@@ -382,6 +396,38 @@
                     <state>$PROJ_DIR$\..\..\..\components\ota\flag_operate</state>
                     <state>$PROJ_DIR$\..\..\..\components\ota\utility</state>
                     <state>$PROJ_DIR$\..\..\..\components\connectivity\agent_tiny\atiny_lwm2m</state>
+=======
+                    <state>$PROJ_DIR$\..\..\..\examples\include</state>
+                    <state>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Inc</state>
+                    <state>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Inc\Legacy</state>
+                    <state>$PROJ_DIR$\..\..\..\components\net\lwip-2.0.3\src\include</state>
+                    <state>$PROJ_DIR$\..\..\..\components\net\lwip_port</state>
+                    <state>$PROJ_DIR$\..\..\..\components\net\lwip_port\OS</state>
+                    <state>$PROJ_DIR$\..\..\..\components\connectivity\lwm2m\core\er-coap-13</state>
+                    <state>$PROJ_DIR$\..\..\..\components\connectivity\lwm2m\core</state>
+                    <state>$PROJ_DIR$\..\..\..\components\connectivity\lwm2m\examples\shared</state>
+                    <state>$PROJ_DIR$\..\..\..\components\connectivity\lwm2m\examples\client</state>
+                    <state>$PROJ_DIR$\..\..\..\components\security\mbedtls\mbedtls_port</state>
+                    <state>$PROJ_DIR$\..\..\..\components\security\mbedtls\mbedtls-2.6.0\include</state>
+                    <state>$PROJ_DIR$\..\..\..\components\security\mbedtls\mbedtls-2.6.0\include\mbedtls</state>
+                    <state>$PROJ_DIR$\..\..\..\components\connectivity\agent_tiny\comm\include</state>
+                    <state>$PROJ_DIR$\..\..\..\components\connectivity\agent_tiny\lwm2m_client</state>
+                    <state>$PROJ_DIR$\..\..\..\components\connectivity\agent_tiny\examples</state>
+                    <state>$PROJ_DIR$\..\..\..\components\connectivity\agent_tiny\osadapter</state>
+                    <state>$PROJ_DIR$\..\Hardware\Inc</state>
+                    <state>$PROJ_DIR$\..\..\..\components\connectivity\at_frame</state>
+                    <state>$PROJ_DIR$\..\..\..\drivers\devices\wifi</state>
+                    <state>$PROJ_DIR$\..\..\..\drivers\devices\gprs</state>
+                    <state>$PROJ_DIR$\..\..\..\drivers\devices\nb</state>
+                    <state>$PROJ_DIR$\..\..\..\components\connectivity\nb_iot</state>
+                    <state>$PROJ_DIR$\..\..\..\components\connectivity\agent_tiny\firmware_update</state>
+                    <state>$PROJ_DIR$\..\..\..\components\fota\fota_package_storage_device</state>
+                    <state>$PROJ_DIR$\..\..\..\components\fota\ota</state>
+                    <state>$PROJ_DIR$\..\..\..\components\fota\utility</state>
+                    <state>$PROJ_DIR$\..\..\..\components\connectivity\agent_tiny\firmware_update</state>
+                    <state>$PROJ_DIR$\..\..\..\components\connectivity\agent_tiny\lwm2m_client\fota</state>
+                    <state>$PROJ_DIR$\..\..\..\components\connectivity\lwm2m\examples\shared</state>
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
                 </option>
                 <option>
                     <name>CCStdIncCheck</name>
@@ -2094,6 +2140,7 @@
     <group>
         <name>agent_demo</name>
         <file>
+<<<<<<< HEAD
             <name>$PROJ_DIR$\..\..\..\demos\agenttiny_lwm2m\agent_tiny_cmd_ioctl.c</name>
         </file>
         <file>
@@ -2167,6 +2214,81 @@
         </file>
         <file>
             <name>$PROJ_DIR$\..\..\..\components\connectivity\agent_tiny\atiny_lwm2m\util_timer.c</name>
+=======
+            <name>$PROJ_DIR$\..\..\..\components\connectivity\agent_tiny\examples\agent_tiny_cmd_ioctl.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\components\connectivity\agent_tiny\examples\agent_tiny_demo.c</name>
+        </file>
+    </group>
+    <group>
+        <name>at_framework</name>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\components\connectivity\at_frame\at_api_interface.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\components\connectivity\at_frame\atadapter.c</name>
+        </file>
+    </group>
+    <group>
+        <name>atiny_tiny</name>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\components\connectivity\agent_tiny\lwm2m_client\agenttiny.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\components\connectivity\agent_tiny\lwm2m_client\atiny_fota_api.h</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\components\connectivity\agent_tiny\lwm2m_client\fota\atiny_fota_manager.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\components\connectivity\agent_tiny\lwm2m_client\fota\atiny_fota_state.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\components\connectivity\agent_tiny\lwm2m_client\atiny_log.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\components\connectivity\agent_tiny\lwm2m_client\atiny_rpt.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\components\connectivity\agent_tiny\lwm2m_client\fota\atiny_update_info.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\components\connectivity\agent_tiny\lwm2m_client\connection.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\components\connectivity\agent_tiny\firmware_update\firmware_update.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\components\connectivity\agent_tiny\lwm2m_client\object_access_control.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\components\connectivity\agent_tiny\lwm2m_client\object_binary_app_data_container.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\components\connectivity\agent_tiny\lwm2m_client\object_connectivity_moni.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\components\connectivity\agent_tiny\lwm2m_client\object_connectivity_stat.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\components\connectivity\agent_tiny\lwm2m_client\object_device.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\components\connectivity\agent_tiny\lwm2m_client\object_firmware.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\components\connectivity\agent_tiny\lwm2m_client\object_location.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\components\connectivity\agent_tiny\lwm2m_client\object_security.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\components\connectivity\agent_tiny\lwm2m_client\object_server.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\components\connectivity\agent_tiny\lwm2m_client\platform_adapter.c</name>
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
         </file>
     </group>
     <group>
@@ -2238,6 +2360,7 @@
     <group>
         <name>fota</name>
         <file>
+<<<<<<< HEAD
             <name>$PROJ_DIR$\..\..\..\components\ota\flag_operate\flag_manager.c</name>
         </file>
         <file>
@@ -2260,6 +2383,30 @@
         </file>
         <file>
             <name>$PROJ_DIR$\..\..\..\components\ota\flag_operate\upgrade_flag.c</name>
+=======
+            <name>$PROJ_DIR$\..\..\..\components\fota\fota_package_storage_device\fota_firmware_writer.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\components\fota\fota_package_storage_device\fota_package_checksum.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\components\fota\fota_package_storage_device\fota_package_head.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\components\fota\fota_package_storage_device\fota_package_storage_device.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\components\fota\ota\ota.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\components\fota\utility\ota_crc.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\components\fota\ota\ota_default.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\components\fota\utility\ota_sha256.c</name>
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
         </file>
     </group>
     <group>
@@ -2295,7 +2442,11 @@
     <group>
         <name>liteos/cmsis</name>
         <file>
+<<<<<<< HEAD
             <name>$PROJ_DIR$\..\..\..\osdepends\liteos\cmsis\cmsis_liteos.c</name>
+=======
+            <name>$PROJ_DIR$\..\..\..\components\cmsis\cmsis_liteos.c</name>
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
         </file>
     </group>
     <group>
@@ -2359,6 +2510,7 @@
         </file>
     </group>
     <group>
+<<<<<<< HEAD
         <name>log</name>
         <file>
             <name>$PROJ_DIR$\..\..\..\components\log\atiny_log.c</name>
@@ -2467,15 +2619,126 @@
         </file>
         <file>
             <name>$PROJ_DIR$\..\..\..\components\net\lwip\lwip-2.0.3\src\core\udp.c</name>
+=======
+        <name>lwip</name>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\components\net\lwip-2.0.3\src\api\api_lib.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\components\net\lwip-2.0.3\src\api\api_msg.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\components\net\lwip-2.0.3\src\core\ipv4\autoip.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\components\net\lwip-2.0.3\src\core\def.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\components\net\lwip-2.0.3\src\core\ipv4\dhcp.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\components\net\lwip-2.0.3\src\core\dns.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\components\net\lwip-2.0.3\src\api\err.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\components\net\lwip-2.0.3\src\core\ipv4\etharp.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\components\net\lwip-2.0.3\src\netif\ethernet.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\components\net\lwip-2.0.3\src\core\ipv4\icmp.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\components\net\lwip-2.0.3\src\core\ipv4\igmp.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\components\net\lwip-2.0.3\src\core\inet_chksum.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\components\net\lwip-2.0.3\src\core\init.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\components\net\lwip-2.0.3\src\core\ip.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\components\net\lwip-2.0.3\src\core\ipv4\ip4.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\components\net\lwip-2.0.3\src\core\ipv4\ip4_addr.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\components\net\lwip-2.0.3\src\core\ipv4\ip4_frag.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\components\net\lwip-2.0.3\src\core\mem.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\components\net\lwip-2.0.3\src\core\memp.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\components\net\lwip-2.0.3\src\api\netbuf.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\components\net\lwip-2.0.3\src\api\netdb.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\components\net\lwip-2.0.3\src\core\netif.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\components\net\lwip-2.0.3\src\api\netifapi.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\components\net\lwip-2.0.3\src\core\pbuf.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\components\net\lwip-2.0.3\src\core\raw.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\components\net\lwip-2.0.3\src\api\sockets.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\components\net\lwip-2.0.3\src\core\stats.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\components\net\lwip-2.0.3\src\core\sys.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\components\net\lwip-2.0.3\src\core\tcp.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\components\net\lwip-2.0.3\src\core\tcp_in.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\components\net\lwip-2.0.3\src\core\tcp_out.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\components\net\lwip-2.0.3\src\api\tcpip.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\components\net\lwip-2.0.3\src\core\timeouts.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\components\net\lwip-2.0.3\src\core\udp.c</name>
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
         </file>
     </group>
     <group>
         <name>lwip_port</name>
         <file>
+<<<<<<< HEAD
             <name>$PROJ_DIR$\..\..\..\components\net\lwip\lwip_port\OS\ethernetif.c</name>
         </file>
         <file>
             <name>$PROJ_DIR$\..\..\..\components\net\lwip\lwip_port\OS\sys_arch.c</name>
+=======
+            <name>$PROJ_DIR$\..\..\..\components\net\lwip_port\OS\ethernetif.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\components\net\lwip_port\OS\sys_arch.c</name>
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
         </file>
     </group>
     <group>
@@ -2505,9 +2768,12 @@
             <name>$PROJ_DIR$\..\..\..\components\connectivity\lwm2m\core\list.c</name>
         </file>
         <file>
+<<<<<<< HEAD
             <name>$PROJ_DIR$\..\..\..\components\connectivity\lwm2m\core\lwm2m_utils.c</name>
         </file>
         <file>
+=======
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
             <name>$PROJ_DIR$\..\..\..\components\connectivity\lwm2m\core\management.c</name>
         </file>
         <file>
@@ -2531,6 +2797,12 @@
         <file>
             <name>$PROJ_DIR$\..\..\..\components\connectivity\lwm2m\core\uri.c</name>
         </file>
+<<<<<<< HEAD
+=======
+        <file>
+            <name>$PROJ_DIR$\..\..\..\components\connectivity\lwm2m\core\utils.c</name>
+        </file>
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
     </group>
     <group>
         <name>mbedtls</name>
@@ -2772,7 +3044,14 @@
     <group>
         <name>os_adapter</name>
         <file>
+<<<<<<< HEAD
             <name>$PROJ_DIR$\..\..\..\osdepends\liteos\atiny_osdep.c</name>
+=======
+            <name>$PROJ_DIR$\..\..\..\components\connectivity\agent_tiny\osadapter\atiny_adapter.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\components\connectivity\agent_tiny\osadapter\atiny_socket.c</name>
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
         </file>
     </group>
     <group>
@@ -2793,15 +3072,22 @@
             <name>$PROJ_DIR$\..\Src\eth.c</name>
         </file>
         <file>
+<<<<<<< HEAD
             <name>$PROJ_DIR$\..\Src\flash_adaptor.c</name>
+=======
+            <name>$PROJ_DIR$\..\Src\fota_port.c</name>
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
         </file>
         <file>
             <name>$PROJ_DIR$\..\Src\main.c</name>
         </file>
         <file>
+<<<<<<< HEAD
             <name>$PROJ_DIR$\..\Src\ota_port.c</name>
         </file>
         <file>
+=======
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
             <name>$PROJ_DIR$\..\Src\sys_init.c</name>
         </file>
         <file>
@@ -2810,13 +3096,17 @@
         <file>
             <name>$PROJ_DIR$\..\Src\usart.c</name>
         </file>
+<<<<<<< HEAD
         <file>
             <name>$PROJ_DIR$\..\Src\user_task.c</name>
         </file>
+=======
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
     </group>
     <group>
         <name>user_drivers</name>
         <file>
+<<<<<<< HEAD
             <name>$PROJ_DIR$\..\..\..\components\net\at_device\nb_bc95\bc95.c</name>
         </file>
         <file>
@@ -2824,6 +3114,15 @@
         </file>
         <file>
             <name>$PROJ_DIR$\..\..\..\components\net\at_device\gprs_sim900a\sim900a.c</name>
+=======
+            <name>$PROJ_DIR$\..\..\..\drivers\devices\nb\bc95.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\drivers\devices\wifi\esp8266\esp8266.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\drivers\devices\gprs\sim900a.c</name>
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
         </file>
     </group>
 </project>

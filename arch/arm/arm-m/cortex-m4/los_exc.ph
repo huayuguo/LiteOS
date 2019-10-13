@@ -104,8 +104,11 @@ typedef struct tagExcInfoCallBackArray
 #endif
 
 extern VOID osExcRegister(EXC_INFO_TYPE uwType, EXC_INFO_SAVE_CALLBACK pFunc, VOID *pArg);
+<<<<<<< HEAD
 
 #endif
+=======
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 
 #ifdef __cplusplus
 #if __cplusplus

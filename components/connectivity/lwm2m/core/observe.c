@@ -82,7 +82,11 @@
 */
 
 #include "internals.h"
+<<<<<<< HEAD
 #include "osdepends/atiny_osdep.h"
+=======
+#include "atiny_adapter.h"
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 #include <stdio.h>
 
 
@@ -211,7 +215,10 @@ uint8_t observe_handleRequest(lwm2m_context_t *contextP,
                               coap_packet_t *message,
                               coap_packet_t *response)
 {
+<<<<<<< HEAD
     lwm2m_observed_t * observedP;
+=======
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
     lwm2m_watcher_t *watcherP;
     uint32_t count;
 
@@ -294,7 +301,11 @@ void observe_cancel(lwm2m_context_t *contextP,
     {
         lwm2m_watcher_t *targetP = NULL;
 
+<<<<<<< HEAD
         if (observedP->watcherList->lastMid == mid
+=======
+        if ((LWM2M_MAX_ID == mid || observedP->watcherList->lastMid == mid)
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
                 && lwm2m_session_is_equal(observedP->watcherList->server->sessionH, fromSessionH, contextP->userData))
         {
             targetP = observedP->watcherList;
@@ -307,7 +318,11 @@ void observe_cancel(lwm2m_context_t *contextP,
             parentP = observedP->watcherList;
             while (parentP->next != NULL
                     && (parentP->next->lastMid != mid
+<<<<<<< HEAD
                  || !lwm2m_session_is_equal(parentP->next->server->sessionH, fromSessionH, contextP->userData)))
+=======
+                        || lwm2m_session_is_equal(parentP->next->server->sessionH, fromSessionH, contextP->userData)))
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
             {
                 parentP = parentP->next;
             }

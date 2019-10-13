@@ -1578,6 +1578,7 @@ HAL_ETH_StateTypeDef HAL_ETH_GetState(ETH_HandleTypeDef *heth)
   return heth->State;
 }
 
+<<<<<<< HEAD
 
 static void ETH_MACAddressConfigWithControl(ETH_HandleTypeDef *heth, uint32_t MacAddr, uint8_t *Addr, uint32_t control_flag)
 {
@@ -1642,6 +1643,8 @@ HAL_StatusTypeDef HAL_ETH_EnableMulticastMacAddr(ETH_HandleTypeDef *heth, uint32
     return HAL_OK;
 }
 
+=======
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 /**
   * @}
   */
@@ -1926,7 +1929,27 @@ static void ETH_MACDMAConfig(ETH_HandleTypeDef *heth, uint32_t err)
   */
 static void ETH_MACAddressConfig(ETH_HandleTypeDef *heth, uint32_t MacAddr, uint8_t *Addr)
 {
+<<<<<<< HEAD
     ETH_MACAddressConfigWithControl(heth, MacAddr, Addr, 0);
+=======
+  uint32_t tmpreg1;
+
+  /* Prevent unused argument(s) compilation warning */
+  UNUSED(heth);
+
+  /* Check the parameters */
+  assert_param(IS_ETH_MAC_ADDRESS0123(MacAddr));
+
+  /* Calculate the selected MAC address high register */
+  tmpreg1 = ((uint32_t)Addr[5U] << 8U) | (uint32_t)Addr[4U];
+  /* Load the selected MAC address high register */
+  (*(__IO uint32_t *)((uint32_t)(ETH_MAC_ADDR_HBASE + MacAddr))) = tmpreg1;
+  /* Calculate the selected MAC address low register */
+  tmpreg1 = ((uint32_t)Addr[3U] << 24U) | ((uint32_t)Addr[2U] << 16U) | ((uint32_t)Addr[1U] << 8U) | Addr[0U];
+
+  /* Load the selected MAC address low register */
+  (*(__IO uint32_t *)((uint32_t)(ETH_MAC_ADDR_LBASE + MacAddr))) = tmpreg1;
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 }
 
 /**

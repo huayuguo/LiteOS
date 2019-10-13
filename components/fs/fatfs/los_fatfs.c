@@ -33,6 +33,7 @@
  *---------------------------------------------------------------------------*/
 
 /* Includes -----------------------------------------------------------------*/
+<<<<<<< HEAD
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -45,6 +46,24 @@
 #include "los_printf.h"
 
 
+=======
+#include "los_fatfs.h"
+
+#include <stdio.h>
+#include <string.h>
+#include <sys/stat.h>
+#include <los_vfs.h>
+
+#if defined (__GNUC__) || defined (__CC_ARM)
+#include <sys/fcntl.h>
+#endif
+
+#ifdef __GNUC__
+#include <sys/unistd.h>
+#endif
+
+#include <los_printf.h>
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 /* Defines ------------------------------------------------------------------*/
 /* Typedefs -----------------------------------------------------------------*/
 
@@ -57,7 +76,11 @@
 #define POINTER_ASSERT(p) \
     if(p == NULL) \
     { \
+<<<<<<< HEAD
         return -EINVAL; \
+=======
+        return -1; \
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
     }
 #endif
 /* Local variables ----------------------------------------------------------*/
@@ -68,6 +91,7 @@ struct disk_mnt disk;
 /* Private function prototypes ----------------------------------------------*/
 /* Public functions ---------------------------------------------------------*/
 
+<<<<<<< HEAD
 static int ret_to_errno(FRESULT result)
 {
     int err = 0;
@@ -150,6 +174,8 @@ static int ret_to_errno(FRESULT result)
     return -err;
 }
 
+=======
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 /**
   * @brief  Links a compatible diskio driver/lun id and increments the number of active
   *         linked drivers.
@@ -238,17 +264,30 @@ static int fatfs_flags_get (int oflags)
 
     if (oflags & O_CREAT)
     {
+<<<<<<< HEAD
         flags |= FA_OPEN_ALWAYS;
     }
 
     if ((oflags & O_CREAT) && (oflags & O_EXCL))
     {
         flags |= FA_CREATE_NEW;
+=======
+        flags |= FA_CREATE_ALWAYS;
+    }
+
+    if (oflags & O_EXCL)
+    {
+        flags |= FA_OPEN_ALWAYS;
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
     }
 
     if (oflags & O_TRUNC)
     {
+<<<<<<< HEAD
         flags |= FA_CREATE_ALWAYS;
+=======
+        flags |= FA_OPEN_ALWAYS;
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
     }
 
     if (oflags & O_APPEND)
@@ -263,13 +302,17 @@ static int fatfs_op_open (struct file *file, const char *path_in_mp, int flags)
 {
     FRESULT res;
     FIL     *fp;
+<<<<<<< HEAD
     FILINFO info = {0};
+=======
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 
     fp = (FIL *) malloc (sizeof(FIL));
     if (fp == NULL)
     {
         PRINT_ERR ("fail to malloc memory in FATFS, <malloc.c> is needed,"
                    "make sure it is added\n");
+<<<<<<< HEAD
         return -EINVAL;
     }
 
@@ -281,6 +324,9 @@ static int fatfs_op_open (struct file *file, const char *path_in_mp, int flags)
             free(fp);
             return res;
         }
+=======
+        return -1;
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
     }
 
     res = f_open (fp, path_in_mp, fatfs_flags_get (flags));
@@ -292,6 +338,7 @@ static int fatfs_op_open (struct file *file, const char *path_in_mp, int flags)
     {
         free(fp);
     }
+<<<<<<< HEAD
     if (FR_LOCKED == res)
     {
         int err = 0;
@@ -303,6 +350,10 @@ static int fatfs_op_open (struct file *file, const char *path_in_mp, int flags)
     {
         return ret_to_errno(res);
     }
+=======
+
+    return res;
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 }
 
 static int fatfs_op_close (struct file *file)
@@ -319,7 +370,11 @@ static int fatfs_op_close (struct file *file)
         file->f_data = NULL;
     }
 
+<<<<<<< HEAD
     return ret_to_errno(res);
+=======
+    return res;
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 }
 
 static ssize_t fatfs_op_read (struct file *file, char *buff, size_t bytes)
@@ -329,14 +384,22 @@ static ssize_t fatfs_op_read (struct file *file, char *buff, size_t bytes)
     FIL     *fp = (FIL *)file->f_data;
 
     if (buff == NULL || bytes == 0)
+<<<<<<< HEAD
         return -EINVAL;
+=======
+        return -1;
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 
     POINTER_ASSERT(fp);
     res = f_read (fp, buff, bytes, (UINT *)&size);
     if(res != FR_OK)
     {
         PRINT_ERR ("failed to read, res=%d\n", res);
+<<<<<<< HEAD
         return ret_to_errno(res);
+=======
+        return -1;
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
     }
     return size;
 }
@@ -348,14 +411,22 @@ static ssize_t fatfs_op_write (struct file *file, const char *buff, size_t bytes
     FIL     *fp = (FIL *)file->f_data;
 
     if (buff == NULL || bytes == 0)
+<<<<<<< HEAD
         return -EINVAL;
+=======
+        return -1;
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 
     POINTER_ASSERT(fp);
     res = f_write (fp, buff, bytes, (UINT *)&size);
     if(res != FR_OK || size == 0)
     {
         PRINT_ERR ("failed to write, res=%d\n", res);
+<<<<<<< HEAD
         return ret_to_errno(res);
+=======
+        return -1;
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
     }
     return size;
 }
@@ -365,6 +436,10 @@ static off_t fatfs_op_lseek (struct file *file, off_t off, int whence)
     FIL *fp = (FIL *)file->f_data;
 
     POINTER_ASSERT(fp);
+<<<<<<< HEAD
+=======
+
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
     switch (whence)
     {
     case 0: // SEEK_SET
@@ -376,6 +451,7 @@ static off_t fatfs_op_lseek (struct file *file, off_t off, int whence)
         off += f_size(fp);
         break;
     default:
+<<<<<<< HEAD
     	ret_to_errno(FR_INVALID_PARAMETER);
         return -1;
     }
@@ -416,10 +492,32 @@ int fatfs_op_stat (struct mount_point *mp, const char *path_in_mp, struct stat *
     }
 
     return ret_to_errno(res);
+=======
+        return -1;
+    }
+
+    FRESULT res = f_lseek(fp, off);
+    if (res == FR_OK)
+        return off;
+    else
+        return -1;
+}
+
+int fatfs_op_stat (struct file *file, struct stat *stat)
+{
+    FIL *fp = (FIL *)file->f_data;
+    POINTER_ASSERT(fp);
+
+    memset(stat, 0, sizeof(*stat));
+    stat->st_size = f_size(fp);
+
+    return 0;
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 }
 
 static int fatfs_op_unlink (struct mount_point *mp, const char *path_in_mp)
 {
+<<<<<<< HEAD
     FRESULT res = f_unlink(path_in_mp);
     if (FR_NO_PATH == res)
     {
@@ -433,24 +531,37 @@ static int fatfs_op_unlink (struct mount_point *mp, const char *path_in_mp)
     	return ret_to_errno(res);
     }
 
+=======
+    return f_unlink(path_in_mp);
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 }
 
 static int fatfs_op_rename (struct mount_point *mp, const char *path_in_mp_old,
                              const char *path_in_mp_new)
 {
+<<<<<<< HEAD
     FRESULT res = f_rename(path_in_mp_old, path_in_mp_new);
     return ret_to_errno(res);
+=======
+    return f_rename(path_in_mp_old, path_in_mp_new);
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 }
 
 static int fatfs_op_sync (struct file *file)
 {
     FIL *fp = (FIL *)file->f_data;
+<<<<<<< HEAD
     FRESULT res;
 
     POINTER_ASSERT(fp);
 
     res = f_sync(fp);
     return ret_to_errno(res);
+=======
+
+    POINTER_ASSERT(fp);
+    return f_sync(fp);
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 }
 
 static int fatfs_op_opendir (struct dir *dir, const char *path)
@@ -464,20 +575,32 @@ static int fatfs_op_opendir (struct dir *dir, const char *path)
     {
         PRINT_ERR ("fail to malloc memory in SPIFFS, <malloc.c> is needed,"
                    "make sure it is added\n");
+<<<<<<< HEAD
         return -ENOMEM;
+=======
+        return -1;
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
     }
 
     res = f_opendir(dp, path);
     if(res != FR_OK)
     {
         free(dp);
+<<<<<<< HEAD
         return ret_to_errno(res);
+=======
+        return res;
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
     }
 
     dir->d_data   = dp;
     dir->d_offset = 0;
 
+<<<<<<< HEAD
     return FR_OK;
+=======
+    return res;
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 }
 
 static int fatfs_op_readdir (struct dir *dir, struct dirent *dent)
@@ -492,10 +615,17 @@ static int fatfs_op_readdir (struct dir *dir, struct dirent *dent)
     res = f_readdir(dp, &e);
     if (res != FR_OK)
     {
+<<<<<<< HEAD
         return ret_to_errno(res);
     }
 
     len = MIN(sizeof(e.fname), LOS_MAX_DIR_NAME_LEN+1) - 1;
+=======
+        return -1;
+    }
+
+    len = MIN(sizeof(e.fname), LOS_MAX_FILE_NAME_LEN) - 1;
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
     strncpy ((char *)dent->name, (const char *) e.fname, len);
     dent->name [len] = '\0';
     dent->size = e.fsize;
@@ -526,11 +656,16 @@ static int fatfs_op_closedir (struct dir *dir)
         dir->d_data = NULL;
     }
 
+<<<<<<< HEAD
     return ret_to_errno(res);
+=======
+    return res;
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 }
 
 static int fatfs_op_mkdir(struct mount_point *mp, const char *path)
 {
+<<<<<<< HEAD
     FRESULT res = f_mkdir(path);
     if (FR_NO_PATH == res)
     {
@@ -543,6 +678,9 @@ static int fatfs_op_mkdir(struct mount_point *mp, const char *path)
     {
     	return ret_to_errno(res);
     }
+=======
+    return f_mkdir(path);
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 }
 
 static struct file_ops fatfs_ops =
@@ -598,7 +736,10 @@ int fatfs_init (void)
     return LOS_OK;
 }
 
+<<<<<<< HEAD
 static FATFS *fatfs_ptr = NULL;
+=======
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 
 int fatfs_mount(const char *path, struct diskio_drv *drv, uint8_t *drive)
 {
@@ -629,7 +770,11 @@ int fatfs_mount(const char *path, struct diskio_drv *drv, uint8_t *drive)
     {
         work_buff = (BYTE *)malloc(FF_MAX_SS);
         if(work_buff == NULL)
+<<<<<<< HEAD
             goto err_free;
+=======
+            goto err;
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
         memset(work_buff, 0, FF_MAX_SS);
         res = f_mkfs((const TCHAR *)dpath, FM_ANY, 0, work_buff, FF_MAX_SS);
         if(res == FR_OK)
@@ -651,7 +796,10 @@ int fatfs_mount(const char *path, struct diskio_drv *drv, uint8_t *drive)
     {
         PRINT_INFO ("fatfs mount at %s done!\n", path);
         *drive = s_drive;
+<<<<<<< HEAD
         fatfs_ptr = fs;
+=======
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
         return LOS_OK;
     }
 
@@ -672,12 +820,16 @@ int fatfs_unmount(const char *path, uint8_t drive)
     sprintf(dpath, "%d:/", drive);
     fatfs_unregister(drive);
     f_mount(NULL, (const TCHAR *)dpath, 1);
+<<<<<<< HEAD
     los_fs_unmount(path);
     if (fatfs_ptr)
     {
         free(fatfs_ptr);
         fatfs_ptr = NULL;
     }
+=======
+    los_fs_unmount(path); // need free fs(in fatfs_mount)
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 
     return 0;
 }

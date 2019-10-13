@@ -90,7 +90,11 @@
 #define _LWM2M_CLIENT_H_
 
 #include "liblwm2m_api.h"
+<<<<<<< HEAD
 
+=======
+#include "connection.h"
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -147,9 +151,12 @@ time_t lwm2m_gettime(void);
 //get len of random bytes in output.
 int lwm2m_rand(void *output, size_t len);
 
+<<<<<<< HEAD
 //delay sometime
 void lwm2m_delay(uint32_t second);
 
+=======
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 //#define LWM2M_WITH_LOGS
 #ifdef LWM2M_WITH_LOGS
 // Same usage as C89 printf()
@@ -161,6 +168,7 @@ void lwm2m_delay(uint32_t second);
 // Returns a session handle that MUST uniquely identify a peer.
 // secObjInstID: ID of the Securty Object instance to open a connection to
 // userData: parameter to lwm2m_init()
+<<<<<<< HEAD
 // bootstrap_flag: If BootstrapServer
 void *lwm2m_connect_server(uint16_t secObjInstID, void *userData, bool isServer);
 
@@ -169,21 +177,32 @@ void *lwm2m_connect_server(uint16_t secObjInstID, void *userData, bool isServer)
 // userData: parameter to lwm2m_init()
 void lwm2m_close_connection(void* sessionH, void* userData);
 
+=======
+//void* lwm2m_connect_server(uint16_t secObjInstID, void* userData, bool bootstrap_flag);
+// Close a session created by lwm2m_connect_server()
+// sessionH: session handle identifying the peer (opaque to the core)
+// userData: parameter to lwm2m_init()
+//void lwm2m_close_connection(void* sessionH, void* userData);
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 #endif
 // Send data to a peer
 // Returns COAP_NO_ERROR or a COAP_NNN error code
 // sessionH: session handle identifying the peer (opaque to the core)
 // buffer, length: data to send
 // userData: parameter to lwm2m_init()
+<<<<<<< HEAD
 uint8_t lwm2m_buffer_send(void* sessionH,
                           uint8_t* buffer,
                           size_t length,
                           void* userdata);
 
+=======
+//uint8_t lwm2m_buffer_send(void* sessionH, uint8_t* buffer, size_t length, void* userData);
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 // Compare two session handles
 // Returns true if the two sessions identify the same peer. false otherwise.
 // userData: parameter to lwm2m_init()
-bool lwm2m_session_is_equal(void* session1, void* session2, void* userData);
+//bool lwm2m_session_is_equal(void* session1, void* session2, void* userData);
 
 /*
  * Error code
@@ -714,7 +733,9 @@ typedef enum
     STATE_BOOTSTRAPPING,
     STATE_REGISTER_REQUIRED,
     STATE_REGISTERING,
-    STATE_READY
+    STATE_READY,
+    STATE_DELAY, // use to delay the retry  register and bootstrap
+    STATE_NON = STATE_DELAY
 } lwm2m_client_state_t;
 
 typedef enum
@@ -752,6 +773,11 @@ typedef struct
     lwm2m_bootstrap_type_e bsType;
     lwm2m_client_state_t state;
     uint32_t cnt;
+<<<<<<< HEAD
+=======
+    uint32_t expireTime;
+    bool startFlag;
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 }lwm2m_bs_control_t;
 #endif
 

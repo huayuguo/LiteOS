@@ -36,12 +36,27 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdarg.h>
+<<<<<<< HEAD
 #include "los_config.h"
 #include "los_mux.h"
 #include "fs/sys/errno.h"
 #include "fs/sys/fcntl.h"
 #include "fs/los_vfs.h"
 
+=======
+
+#if defined (__GNUC__) || defined (__CC_ARM)
+#include <sys/fcntl.h>
+#include <los_mux.h>
+#endif
+
+#ifdef __GNUC__
+#include <sys/errno.h>
+#endif
+
+#include <los_config.h>
+#include <los_vfs.h>
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 
 #if (LOSCFG_ENABLE_VFS == YES)
 
@@ -96,10 +111,13 @@ struct mount_point *los_mp_find (const char *path, const char **path_in_mp)
     struct mount_point *best_mp = NULL;
     int                  best_matches = 0;
 
+<<<<<<< HEAD
     if (path == NULL)
     {
         return NULL;
     }
+=======
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
     if (path_in_mp != NULL)
     {
         *path_in_mp = NULL;
@@ -158,7 +176,12 @@ struct mount_point *los_mp_find (const char *path, const char **path_in_mp)
 
             matches += (t - m_path);
             m_path  += (t - m_path);
+<<<<<<< HEAD
         } while (*m_path != '\0');
+=======
+        }
+        while (*m_path != '\0');
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 
         if (matches > best_matches)
         {
@@ -183,7 +206,11 @@ int los_open (const char *path, int flags)
 {
     struct file         *file = NULL;
     int                  fd = -1;
+<<<<<<< HEAD
     const char          *path_in_mp = NULL;
+=======
+    const char          *path_in_mp;
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
     struct mount_point *mp;
 
     if (path == NULL)
@@ -218,10 +245,16 @@ int los_open (const char *path, int flags)
 
     mp = los_mp_find (path, &path_in_mp);
 
+<<<<<<< HEAD
     if ((mp == NULL) || (path_in_mp == NULL) || (*path_in_mp == '\0') ||
             (mp->m_fs->fs_fops->open == NULL))
     {
         VFS_ERRNO_SET (ENOENT);
+=======
+    if ((mp == NULL) || (*path_in_mp == '\0') ||
+            (mp->m_fs->fs_fops->open == NULL))
+    {
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
         goto err_post_exit;
     };
 
@@ -375,10 +408,13 @@ int los_close (int fd)
     {
         ret = file->f_fops->close (file);
     }
+<<<<<<< HEAD
     else
     {
         VFS_ERRNO_SET (ENOTSUP);
     }
+=======
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 
     if (0 == ret)
     {
@@ -397,12 +433,15 @@ ssize_t los_read (int fd, char *buff, size_t bytes)
     struct file *file;
     ssize_t       ret = (ssize_t) - 1;
 
+<<<<<<< HEAD
     if (buff == NULL || bytes == 0)
     {
         VFS_ERRNO_SET (EINVAL);
         return ret;
     }
 
+=======
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
     file = los_attach_file (fd);
 
     if (file == NULL)
@@ -418,10 +457,13 @@ ssize_t los_read (int fd, char *buff, size_t bytes)
     {
         ret = file->f_fops->read (file, buff, bytes);
     }
+<<<<<<< HEAD
     else
     {
         VFS_ERRNO_SET (ENOTSUP);
     }
+=======
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 
     /* else ret will be -1 */
 
@@ -435,12 +477,15 @@ ssize_t los_write (int fd, const void *buff, size_t bytes)
     struct file *file;
     ssize_t       ret = -1;
 
+<<<<<<< HEAD
     if (buff == NULL || bytes == 0)
     {
         VFS_ERRNO_SET (EINVAL);
         return ret;
     }
 
+=======
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
     file = los_attach_file (fd);
 
     if (file == NULL)
@@ -456,10 +501,13 @@ ssize_t los_write (int fd, const void *buff, size_t bytes)
     {
         ret = file->f_fops->write (file, buff, bytes);
     }
+<<<<<<< HEAD
     else
     {
         VFS_ERRNO_SET (ENOTSUP);
     }
+=======
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 
     /* else ret will be -1 */
 
@@ -496,6 +544,7 @@ off_t los_lseek (int fd, off_t off, int whence)
 
 int los_stat (const char *path, struct stat *stat)
 {
+<<<<<<< HEAD
     struct mount_point *mp = NULL;
     const char *path_in_mp = NULL;
     int ret = -1;
@@ -531,6 +580,27 @@ int los_stat (const char *path, struct stat *stat)
     }
 
     LOS_MuxPost (fs_mutex);
+=======
+    struct file *file;
+    int           ret = -1;
+    int           fd = los_open (path, 0);
+
+    file = los_attach_file (fd);
+
+    if (file == NULL)   /* means closed by others :-(, not likely true */
+    {
+        return ret;
+    }
+
+    if (file->f_fops->stat != NULL)
+    {
+        ret = file->f_fops->stat (file, stat);
+    }
+
+    los_detach_file (file);
+
+    los_close (fd);
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 
     return ret;
 }
@@ -538,6 +608,7 @@ int los_stat (const char *path, struct stat *stat)
 int los_unlink (const char *path)
 {
     struct mount_point *mp;
+<<<<<<< HEAD
     const char          *path_in_mp = NULL;
     int                  ret = -1;
 
@@ -547,14 +618,25 @@ int los_unlink (const char *path)
         return ret;
     }
 
+=======
+    const char          *path_in_mp;
+    int                  ret = -1;
+
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
     LOS_MuxPend (fs_mutex, LOS_WAIT_FOREVER);   /* prevent the file open/rename */
 
     mp = los_mp_find (path, &path_in_mp);
 
+<<<<<<< HEAD
     if ((mp == NULL) || (path_in_mp == NULL) || (*path_in_mp == '\0') ||
             (mp->m_fs->fs_fops->unlink == NULL))
     {
         VFS_ERRNO_SET (ENOENT);
+=======
+    if ((mp == NULL) || (*path_in_mp == '\0') ||
+            (mp->m_fs->fs_fops->unlink == NULL))
+    {
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
         goto out;
     }
 
@@ -570,6 +652,7 @@ int los_rename (const char *old, const char *new)
 {
     struct mount_point *mp_old;
     struct mount_point *mp_new;
+<<<<<<< HEAD
     const char          *path_in_mp_old = NULL;
     const char          *path_in_mp_new = NULL;
     int                  ret = -1;
@@ -580,10 +663,17 @@ int los_rename (const char *old, const char *new)
         return ret;
     }
 
+=======
+    const char          *path_in_mp_old;
+    const char          *path_in_mp_new;
+    int                  ret = -1;
+
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
     LOS_MuxPend (fs_mutex, LOS_WAIT_FOREVER);   /* prevent file open/unlink */
 
     mp_old = los_mp_find (old, &path_in_mp_old);
 
+<<<<<<< HEAD
     if(path_in_mp_old == NULL)
     {
         VFS_ERRNO_SET (EINVAL);
@@ -594,15 +684,26 @@ int los_rename (const char *old, const char *new)
             (mp_old->m_fs->fs_fops->unlink == NULL))
     {
         VFS_ERRNO_SET (EINVAL);
+=======
+    if ((mp_old == NULL) || (*path_in_mp_old == '\0') ||
+            (mp_old->m_fs->fs_fops->unlink == NULL))
+    {
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
         goto out;
     }
 
     mp_new = los_mp_find (new, &path_in_mp_new);
 
+<<<<<<< HEAD
     if ((mp_new == NULL) || (path_in_mp_new == NULL) || (*path_in_mp_new == '\0') ||
             (mp_new->m_fs->fs_fops->unlink == NULL))
     {
         VFS_ERRNO_SET (EINVAL);
+=======
+    if ((mp_new == NULL) || (*path_in_mp_new == '\0') ||
+            (mp_new->m_fs->fs_fops->unlink == NULL))
+    {
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
         goto out;
     }
 
@@ -617,10 +718,13 @@ int los_rename (const char *old, const char *new)
         ret = mp_old->m_fs->fs_fops->rename (mp_old, path_in_mp_old,
                                              path_in_mp_new);
     }
+<<<<<<< HEAD
     else
     {
         VFS_ERRNO_SET (ENOTSUP);
     }
+=======
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 
 out:
     LOS_MuxPost (fs_mutex);
@@ -650,10 +754,13 @@ int los_ioctl (int fd, int func, ...)
     {
         ret = file->f_fops->ioctl (file, func, arg);
     }
+<<<<<<< HEAD
     else
     {
         VFS_ERRNO_SET (ENOTSUP);
     }
+=======
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 
     los_detach_file (file);
 
@@ -676,10 +783,13 @@ int los_sync (int fd)
     {
         ret = file->f_fops->sync (file);
     }
+<<<<<<< HEAD
     else
     {
         VFS_ERRNO_SET (ENOTSUP);
     }
+=======
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 
     los_detach_file (file);
 
@@ -689,6 +799,7 @@ int los_sync (int fd)
 struct dir *los_opendir (const char *path)
 {
     struct mount_point *mp;
+<<<<<<< HEAD
     const char          *path_in_mp = NULL;
     struct dir          *dir = NULL;
     int                  ret = -1;
@@ -699,6 +810,12 @@ struct dir *los_opendir (const char *path)
         return NULL;
     }
 
+=======
+    const char          *path_in_mp;
+    struct dir          *dir = NULL;
+    int                  ret = -1;
+
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
     dir = (struct dir *) malloc (sizeof (struct dir));
 
     if (dir == NULL)
@@ -718,7 +835,11 @@ struct dir *los_opendir (const char *path)
 
     mp = los_mp_find (path, &path_in_mp);
 
+<<<<<<< HEAD
     if (mp == NULL || path_in_mp == NULL)
+=======
+    if (mp == NULL)
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
     {
         VFS_ERRNO_SET (ENOENT);
         LOS_MuxPost (fs_mutex);
@@ -739,7 +860,10 @@ struct dir *los_opendir (const char *path)
 
     if (mp->m_fs->fs_fops->opendir == NULL)
     {
+<<<<<<< HEAD
         VFS_ERRNO_SET (ENOTSUP);
+=======
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
         LOS_MuxPost (mp->m_mutex);
         free (dir);
         return NULL;
@@ -784,6 +908,7 @@ struct dirent *los_readdir (struct dir *dir)
         return NULL;
     }
 
+<<<<<<< HEAD
     if (dir->d_mp->m_fs->fs_fops->readdir != NULL)
     {
         if (dir->d_mp->m_fs->fs_fops->readdir (dir, &dir->d_dent) == 0)
@@ -798,6 +923,12 @@ struct dirent *los_readdir (struct dir *dir)
     else
     {
         VFS_ERRNO_SET (ENOTSUP);
+=======
+    if ((dir->d_mp->m_fs->fs_fops->readdir != NULL) &&
+            (dir->d_mp->m_fs->fs_fops->readdir (dir, &dir->d_dent) == 0))
+    {
+        ret = &dir->d_dent;
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
     }
 
     LOS_MuxPost (mp->m_mutex);
@@ -812,7 +943,11 @@ int los_closedir (struct dir *dir)
 
     if (dir == NULL)
     {
+<<<<<<< HEAD
         VFS_ERRNO_SET (EBADF);
+=======
+        VFS_ERRNO_SET (EINVAL);
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
         return -1;
     }
 
@@ -828,20 +963,26 @@ int los_closedir (struct dir *dir)
     {
         ret = dir->d_mp->m_fs->fs_fops->closedir (dir);
     }
+<<<<<<< HEAD
     else
     {
         VFS_ERRNO_SET (ENOTSUP);
     }
+=======
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 
     if (ret == 0)
     {
         free (dir);
         mp->m_refs--;
     }
+<<<<<<< HEAD
     else
     {    
         VFS_ERRNO_SET (EBADF);
     }
+=======
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 
     LOS_MuxPost (mp->m_mutex);
 
@@ -851,17 +992,24 @@ int los_closedir (struct dir *dir)
 int los_mkdir (const char *path, int mode)
 {
     struct mount_point *mp;
+<<<<<<< HEAD
     const char          *path_in_mp = NULL;
+=======
+    const char          *path_in_mp;
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
     int                  ret = -1;
 
     (void) mode;
 
+<<<<<<< HEAD
     if (path == NULL)
     {
         VFS_ERRNO_SET (EINVAL);
         return -1;
     }
 
+=======
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
     if (LOS_OK != LOS_MuxPend (fs_mutex, LOS_WAIT_FOREVER))
     {
         VFS_ERRNO_SET (EAGAIN);
@@ -870,7 +1018,11 @@ int los_mkdir (const char *path, int mode)
 
     mp = los_mp_find (path, &path_in_mp);
 
+<<<<<<< HEAD
     if ((mp == NULL) || (path_in_mp == NULL) || (*path_in_mp == '\0'))
+=======
+    if (mp == NULL)
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
     {
         VFS_ERRNO_SET (ENOENT);
         LOS_MuxPost (fs_mutex);
@@ -893,7 +1045,10 @@ int los_mkdir (const char *path, int mode)
     }
     else
     {
+<<<<<<< HEAD
         VFS_ERRNO_SET (ENOTSUP);
+=======
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
         ret = -1;
     }
 
@@ -933,7 +1088,12 @@ static int los_fs_name_check (const char *name)
         }
 
         return LOS_NOK;
+<<<<<<< HEAD
     } while (1);
+=======
+    }
+    while (1);
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 
     return len == 0 ? LOS_NOK : LOS_OK;
 }
@@ -1041,10 +1201,16 @@ int los_fs_mount (const char *fsname, const char *path, void *data)
 {
     struct file_system *fs;
     struct mount_point *mp;
+<<<<<<< HEAD
     const char          *tmp = NULL;
 
     if (fsname == NULL || path == NULL ||
             path [0] == '\0' || path [0] != '/')
+=======
+    const char          *tmp;
+
+    if (path [0] == '\0' || path [0] != '/')
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
     {
         return LOS_NOK;
     }
@@ -1060,7 +1226,11 @@ int los_fs_mount (const char *fsname, const char *path, void *data)
 
     mp = los_mp_find (path, &tmp);
 
+<<<<<<< HEAD
     if ((mp != NULL) && (tmp != NULL) && (*tmp == '\0'))
+=======
+    if ((mp != NULL) && (*tmp == '\0'))
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
     {
         goto err_post_exit;
     }
@@ -1106,6 +1276,7 @@ int los_fs_unmount (const char *path)
 {
     struct mount_point *mp;
     struct mount_point *prev;
+<<<<<<< HEAD
     const char          *tmp = NULL;
     int                  ret = LOS_NOK;
 
@@ -1114,11 +1285,20 @@ int los_fs_unmount (const char *path)
         return ret;
     }
 
+=======
+    const char          *tmp;
+    int                  ret = LOS_NOK;
+
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
     LOS_MuxPend (fs_mutex, LOS_WAIT_FOREVER);
 
     mp = los_mp_find (path, &tmp);
 
+<<<<<<< HEAD
     if ((mp == NULL) || (tmp == NULL) || (*tmp != '\0') || (mp->m_refs != 0))
+=======
+    if ((mp == NULL) || (*tmp != '\0') || (mp->m_refs != 0))
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
     {
         goto post_exit;
     }
@@ -1171,6 +1351,7 @@ int los_vfs_init (void)
     return LOS_NOK;
 }
 
+<<<<<<< HEAD
 
 #ifndef WITH_LINUX
 
@@ -1180,10 +1361,17 @@ int open (const char *path, int flags,...)
 {
     int ret = los_open (path, flags);
     return MAP_TO_POSIX_RET(ret);
+=======
+#ifdef __CC_ARM
+int open (const char *path, int flags)
+{
+    return los_open (path, flags);
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 }
 
 int close (int fd)
 {
+<<<<<<< HEAD
     int ret = los_close (fd);
     return MAP_TO_POSIX_RET(ret);
 }
@@ -1192,28 +1380,49 @@ ssize_t read (int fd, void *buff, size_t bytes)
 {
     ssize_t ret = los_read (fd, buff, bytes);
     return MAP_TO_POSIX_RET(ret);
+=======
+    return los_close (fd);
+}
+
+ssize_t read (int fd, char *buff, size_t bytes)
+{
+    return los_read (fd, buff, bytes);
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 }
 
 ssize_t write (int fd, const void *buff, size_t bytes)
 {
+<<<<<<< HEAD
     ssize_t ret = los_write (fd, buff, bytes);
     return MAP_TO_POSIX_RET(ret);
+=======
+    return los_write (fd, buff, bytes);
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 }
 
 off_t lseek (int fd, off_t off, int whence)
 {
+<<<<<<< HEAD
     off_t ret = los_lseek (fd, off, whence);
     return MAP_TO_POSIX_RET(ret);
+=======
+    return los_lseek (fd, off, whence);
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 }
 
 int stat (const char *path, struct stat *stat)
 {
+<<<<<<< HEAD
     int ret = los_stat (path, stat);
     return MAP_TO_POSIX_RET(ret);
+=======
+    return los_stat (path, stat);
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 }
 
 int unlink (const char *path)
 {
+<<<<<<< HEAD
     int ret = los_unlink (path);
     return MAP_TO_POSIX_RET(ret);
 }
@@ -1228,6 +1437,31 @@ int fsync (int fd)
 {
     int ret = los_sync (fd);
     return MAP_TO_POSIX_RET(ret);
+=======
+    return los_unlink (path);
+}
+
+int rename (const char *old, const char *new)
+{
+    return los_rename (old, new);
+}
+
+int ioctl (int fd, unsigned long func, ...)
+{
+    va_list       ap;
+    unsigned long arg;
+
+    va_start (ap, func);
+    arg = va_arg (ap, unsigned long);
+    va_end (ap);
+
+    return los_ioctl (fd, func, arg);
+}
+
+int sync (int fd)
+{
+    return los_sync (fd);
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 }
 
 struct dir *opendir (const char *path)
@@ -1242,15 +1476,29 @@ struct dirent *readdir (struct dir *dir)
 
 int closedir (struct dir *dir)
 {
+<<<<<<< HEAD
     int ret = los_closedir (dir);
     return MAP_TO_POSIX_RET(ret);
+=======
+    return los_closedir (dir);
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 }
 
 int mkdir (const char *path, int mode)
 {
+<<<<<<< HEAD
     int ret = los_mkdir (path, mode);
     return MAP_TO_POSIX_RET(ret);
 }
 
 #endif
 #endif
+=======
+    return los_mkdir (path, mode);
+}
+
+#endif
+
+#endif
+
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842

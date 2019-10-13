@@ -8,6 +8,7 @@
 #ifndef SPIFFS_CONFIG_H_
 #define SPIFFS_CONFIG_H_
 
+<<<<<<< HEAD
 #include <stddef.h>
 #include "fs/los_vfs.h"
 
@@ -28,6 +29,25 @@
 #define SPIFFS_FILEHDL_OFFSET       1
 #define TEST_SPIFFS_FILEHDL_OFFSET  0x1000
 #define SPIFFS_OBJ_NAME_LEN         LOS_MAX_FILE_NAME_LEN
+=======
+// ----------- 8< ------------
+// Following includes are for the linux test build of spiffs
+// These may/should/must be removed/altered/replaced in your target
+#include "los_spiffs_config.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <stddef.h>
+#ifdef __GNUC__
+#include <unistd.h>
+#endif
+#ifdef _SPIFFS_TEST
+#include "testrunner.h"
+#endif
+// ----------- >8 ------------
+
+// compile time switches
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 
 // Set generic spiffs debug output call.
 #ifndef SPIFFS_DBG
@@ -51,10 +71,18 @@
 #endif
 
 
+<<<<<<< HEAD
 // Defines spiffs debug print formatters
 // some general signed number
 #ifndef _SPIPRIi
 #define _SPIPRIi   "%ld"
+=======
+
+// Defines spiffs debug print formatters
+// some general signed number
+#ifndef _SPIPRIi
+#define _SPIPRIi   "%d"
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 #endif
 // address
 #ifndef _SPIPRIad
@@ -354,6 +382,7 @@
 #endif
 #endif
 
+<<<<<<< HEAD
 
 typedef signed long s32_t;
 typedef unsigned long u32_t;
@@ -363,6 +392,8 @@ typedef signed char s8_t;
 typedef unsigned char u8_t;
 
 
+=======
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 // Types depending on configuration such as the amount of flash bytes
 // given to spiffs file system in total (spiffs_file_system_size),
 // the logical block size (log_block_size), and the logical page size

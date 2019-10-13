@@ -31,6 +31,7 @@
  * Import, export and usage of Huawei LiteOS in any manner by you shall be in compliance with such
  * applicable export control laws and regulations.
  *---------------------------------------------------------------------------*/
+<<<<<<< HEAD
 
 #ifndef __STM32F429_ETH_H__
 #define __STM32F429_ETH_H__
@@ -38,5 +39,15 @@
 #include "ethernetif.h"
 
 extern struct ethernet_api g_eth_api;
+=======
+#ifndef AT_NBONLY
+#ifndef __STM32F429_ETH_H__
+#define __STM32F429_ETH_H__
+
+#include "ethernetif.h"
+
+extern struct ethernet_api g_eth_api;
+
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 #endif
 #endif

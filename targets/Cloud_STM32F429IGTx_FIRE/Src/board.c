@@ -34,6 +34,7 @@
 
 #include "stm32f4xx.h"
 #include "board.h"
+<<<<<<< HEAD
 #include "hal_flash.h"
 #include "hal_spi_flash.h"
 
@@ -51,6 +52,12 @@
 #define OTA_LOG(fmt, ...)
 #endif
 
+=======
+#include "ota.h"
+#include "hal_flash.h"
+#include "hal_spi_flash.h"
+
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 #define OTA_FLASH_BASE             0x08000000
 #define OTA_MEMORY_BASE            0x20000000
 
@@ -58,6 +65,19 @@
 #define OTA_STACK_MASK             0x2FF00000
 
 #define OTA_COPY_BUF_SIZE          0x1000
+<<<<<<< HEAD
+=======
+#define OTA_INNER_FLASH_BLOCK_SIZE 0x20000
+#define OTA_RECORD_OFFSET_SIZE     0x4000
+
+typedef enum
+{
+    BOARD_INIT = 0,
+    BOARD_BCK,
+    BOARD_UPDATE,
+    BOARD_ROLLBACK,
+} board_state;
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 
 typedef void (*jump_func)(void);
 
@@ -66,11 +86,20 @@ static void set_msp(uint32_t stack)
     __asm volatile ("MSR MSP, r0; BX r14");
 }
 
+<<<<<<< HEAD
 static int prv_spi2inner_copy(uint32_t addr_source, int32_t image_len)
+=======
+static int prv_spi2inner_copy(uint32_t addr_source,
+                              int32_t image_len,
+                              board_state state,
+                              uint32_t offset,
+                              int (*func_set_update_record)(uint8_t state, uint32_t offset))
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 {
     int ret;
     int32_t copy_len;
     uint8_t buf[OTA_COPY_BUF_SIZE];
+<<<<<<< HEAD
     uint32_t addr_dest = OTA_DEFAULT_IMAGE_ADDR;
 
     ret = hal_flash_erase(addr_dest, image_len);
@@ -97,11 +126,59 @@ static int prv_spi2inner_copy(uint32_t addr_source, int32_t image_len)
         if (ret != 0)
         {
             (void)hal_flash_lock();
+=======
+    uint32_t addr_dest = OTA_DEFAULT_IMAGE_ADDR + offset;
+
+    addr_source += offset;
+    image_len -= offset;
+
+    if (image_len > 0)
+    {
+        ret = hal_flash_erase(addr_dest, image_len);
+        if (ret != 0)
+        {
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
             OTA_LOG("write inner flash failed");
             return OTA_ERRNO_INNER_FLASH_WRITE;
         }
 
+<<<<<<< HEAD
         image_len -= copy_len;
+=======
+        while (image_len > 0)
+        {
+            copy_len = image_len > OTA_COPY_BUF_SIZE ? OTA_COPY_BUF_SIZE : image_len;
+
+            ret = hal_spi_flash_read(buf, copy_len, addr_source);
+            if (ret != 0)
+            {
+                (void)hal_flash_lock();
+                OTA_LOG("read spi flash failed");
+                return OTA_ERRNO_SPI_FLASH_READ;
+            }
+            addr_source += copy_len;
+
+            ret = hal_flash_write(buf, copy_len, &addr_dest);
+            if (ret != 0)
+            {
+                OTA_LOG("write inner flash failed");
+                return OTA_ERRNO_INNER_FLASH_WRITE;
+            }
+
+            offset += copy_len;
+            if (offset % OTA_INNER_FLASH_BLOCK_SIZE == 0)
+            {
+                ret = func_set_update_record(state, offset);
+                if (ret != 0)
+                {
+                    OTA_LOG("write spi flash failed");
+                    return OTA_ERRNO_SPI_FLASH_WRITE;
+                }
+            }
+
+            image_len -= copy_len;
+        }
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
     }
 
     (void)hal_flash_lock();
@@ -109,14 +186,29 @@ static int prv_spi2inner_copy(uint32_t addr_source, int32_t image_len)
     return OTA_ERRNO_OK;
 }
 
+<<<<<<< HEAD
 static int prv_inner2spi_copy(int32_t image_len)
+=======
+static int prv_inner2spi_copy(int32_t image_len,
+                              board_state state,
+                              uint32_t offset,
+                              int (*func_set_update_record)(uint8_t state, uint32_t offset))
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 {
     int ret;
     int32_t copy_len;
     uint8_t buf[OTA_COPY_BUF_SIZE];
+<<<<<<< HEAD
     uint32_t addr_source = OTA_DEFAULT_IMAGE_ADDR;
     uint32_t addr_dest = OTA_IMAGE_BCK_ADDR;
 
+=======
+    uint32_t addr_source = OTA_DEFAULT_IMAGE_ADDR + offset;
+    uint32_t addr_dest = OTA_IMAGE_BCK_ADDR;
+
+    image_len -= offset;
+
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
     ret = hal_spi_flash_erase(addr_dest, image_len);
     if (ret != 0)
     {
@@ -143,6 +235,20 @@ static int prv_inner2spi_copy(int32_t image_len)
             return OTA_ERRNO_SPI_FLASH_WRITE;
         }
 
+<<<<<<< HEAD
+=======
+        offset += copy_len;
+        if (offset % OTA_RECORD_OFFSET_SIZE == 0)
+        {
+            ret = func_set_update_record(state, offset);
+            if (ret != 0)
+            {
+                OTA_LOG("write spi flash failed");
+                return OTA_ERRNO_SPI_FLASH_WRITE;
+            }
+        }
+
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
         image_len -= copy_len;
     }
 
@@ -165,19 +271,28 @@ int board_jump2app(void)
         }
         else
         {
+<<<<<<< HEAD
             OTA_LOG("stack value(%lx) of the image is ilegal", stack);
+=======
+            OTA_LOG("stack value(%04X) of the image is ilegal", stack);
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
             return OTA_ERRNO_ILEGAL_STACK;
         }
     }
     else
     {
+<<<<<<< HEAD
         OTA_LOG("PC value(%lx) of the image is ilegal", pc);
+=======
+        OTA_LOG("PC value(%04X) of the image is ilegal", pc);
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
         return OTA_ERRNO_ILEGAL_PC;
     }
 
     return OTA_ERRNO_OK;
 }
 
+<<<<<<< HEAD
 int board_update_copy(int32_t old_image_len, int32_t new_image_len, uint32_t new_image_addr)
 {
     int ret;
@@ -196,15 +311,82 @@ int board_update_copy(int32_t old_image_len, int32_t new_image_len, uint32_t new
     }
 
     ret = prv_spi2inner_copy(new_image_addr, new_image_len);
+=======
+int board_update_copy(int32_t old_image_len, int32_t new_image_len,
+                      uint32_t new_image_addr,
+                      void (*func_get_update_record)(uint8_t *state, uint32_t *offset),
+                      int (*func_set_update_record)(uint8_t state, uint32_t offset))
+{
+    int ret;
+    board_state cur_state;
+    uint32_t cur_offset;
+
+    if (old_image_len < 0 || new_image_len < 0)
+    {
+        OTA_LOG("ilegal old_image_len(%d) or new_image_len(%d)", old_image_len, new_image_len);
+        return OTA_ERRNO_ILEGAL_PARAM;
+    }
+    if (NULL == func_get_update_record || NULL == func_set_update_record)
+    {
+        OTA_LOG("function pointer of read/write ota_flag is null");
+        return OTA_ERRNO_ILEGAL_PARAM;
+    }
+
+    func_get_update_record((uint8_t *)&cur_state, &cur_offset);
+
+    if (cur_state <= BOARD_BCK)
+    {
+        if (cur_state == BOARD_INIT)
+        {
+            cur_state = BOARD_BCK;
+            cur_offset = 0;
+            ret = func_set_update_record((uint8_t)cur_state, cur_offset);
+            if (ret != 0)
+            {
+                OTA_LOG("write ota flag failed");
+                return OTA_ERRNO_SPI_FLASH_WRITE;
+            }
+        }
+        ret = prv_inner2spi_copy(old_image_len, cur_state, cur_offset, func_set_update_record);
+        if (ret != 0)
+        {
+            OTA_LOG("back up old image failed");
+            return ret;
+        }
+    }
+
+    if (cur_state != BOARD_UPDATE)
+    {
+        cur_state = BOARD_UPDATE;
+        cur_offset = 0;
+        ret = func_set_update_record((uint8_t)BOARD_UPDATE, cur_offset);
+        if (ret != 0)
+        {
+            OTA_LOG("write ota flag failed");
+            return OTA_ERRNO_SPI_FLASH_WRITE;
+        }
+    }
+    ret = prv_spi2inner_copy(new_image_addr, new_image_len, cur_state, cur_offset, func_set_update_record);
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
     if (ret != 0)
     {
         OTA_LOG("update image failed");
         return ret;
     }
+<<<<<<< HEAD
+=======
+    ret = func_set_update_record((uint8_t)BOARD_INIT, 0);
+    if (ret != 0)
+    {
+        OTA_LOG("write ota flag failed");
+        return OTA_ERRNO_SPI_FLASH_WRITE;
+    }
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 
     return OTA_ERRNO_OK;
 }
 
+<<<<<<< HEAD
 int board_rollback_copy(int32_t image_len)
 {
     int ret;
@@ -216,11 +398,55 @@ int board_rollback_copy(int32_t image_len)
     }
 
     ret = prv_spi2inner_copy(OTA_IMAGE_BCK_ADDR, image_len);
+=======
+int board_rollback_copy(int32_t image_len,
+                        void (*func_get_update_record)(uint8_t *record, uint32_t *offset),
+                        int (*func_set_update_record)(uint8_t record, uint32_t offset))
+{
+    int ret;
+    board_state cur_state;
+    uint32_t cur_offset;
+
+    if (image_len < 0)
+    {
+        OTA_LOG("ilegal image_len:%d", image_len);
+        return OTA_ERRNO_ILEGAL_PARAM;
+    }
+    if (NULL == func_get_update_record || NULL == func_set_update_record)
+    {
+        OTA_LOG("function pointer of read/write ota_flag is null");
+        return OTA_ERRNO_ILEGAL_PARAM;
+    }
+
+    func_get_update_record((uint8_t *)&cur_state, &cur_offset);
+
+    if (cur_state != BOARD_ROLLBACK)
+    {
+        cur_state = BOARD_ROLLBACK;
+        cur_offset = 0;
+        ret = func_set_update_record((uint8_t)cur_state, cur_offset);
+        if (ret != 0)
+        {
+            OTA_LOG("write ota flag failed");
+            return OTA_ERRNO_SPI_FLASH_WRITE;
+        }
+    }
+    ret = prv_spi2inner_copy(OTA_IMAGE_BCK_ADDR, image_len, cur_state, cur_offset, func_set_update_record);
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
     if (ret != 0)
     {
         OTA_LOG("rollback image failed");
         return ret;
     }
+<<<<<<< HEAD
+=======
+    ret = func_set_update_record((uint8_t)BOARD_INIT, 0);
+    if (ret != 0)
+    {
+        OTA_LOG("write ota flag failed");
+        return OTA_ERRNO_SPI_FLASH_WRITE;
+    }
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 
     return 0;
 }

@@ -53,7 +53,11 @@
 #include "hal_rng.h"
 #include "usart.h"
 #include "dwt.h"
+<<<<<<< HEAD
 #ifdef WITH_LWIP
+=======
+#ifndef AT_NBONLY
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 
 #include "lwip/netif.h"
 #if defined ( __CC_ARM )  /* MDK ARM Compiler */
@@ -72,17 +76,26 @@
 #include "lwip/timeouts.h"
 #include "ethernetif.h"
 
+<<<<<<< HEAD
 #ifdef WITH_DTLS
 #include "mbedtls/net.h"
 #include "mbedtls/ssl.h"
 #endif
 
+=======
+#include "net.h"
+#include "ssl.h"
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 #include "eth.h"
 #endif
 #ifdef __cplusplus
  extern "C" {
 #endif
+<<<<<<< HEAD
 #ifdef WITH_LWIP
+=======
+#ifndef AT_NBONLY
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 void net_init(void);
 #endif
 uint32_t HAL_GetTick(void);

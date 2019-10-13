@@ -32,11 +32,19 @@
  * applicable export control laws and regulations.
  *---------------------------------------------------------------------------*/
 
+<<<<<<< HEAD
 #if defined(WITH_AT_FRAMEWORK)
 #include "nb_iot/los_nb_api.h"
 #include "at_frame/at_api.h"
 //#include "atiny_socket.h"
 #include "at_device/bc95.h"
+=======
+#if defined(WITH_AT_FRAMEWORK) && defined(USE_NB_NEUL95)
+#include "los_nb_api.h"
+#include "at_api_interface.h"
+//#include "atiny_socket.h"
+#include "bc95.h"
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 
 int los_nb_init(const int8_t* host, const int8_t* port, sec_param_s* psk)
 {
@@ -44,6 +52,7 @@ int los_nb_init(const int8_t* host, const int8_t* port, sec_param_s* psk)
     int timecnt = 0;
     //if(port == NULL)
         //return -1;
+<<<<<<< HEAD
     /*when used nb with agenttiny*/
     /*the following para is replaced by call nb_int()*/
     at_config at_user_conf = {
@@ -62,6 +71,12 @@ int los_nb_init(const int8_t* host, const int8_t* port, sec_param_s* psk)
 
     nb_reboot();
     //LOS_TaskDelay(2000);
+=======
+    at.init();
+
+    nb_reboot();
+    LOS_TaskDelay(2000);
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
     if(psk != NULL)//encryption v1.9
     {
         if(psk->setpsk)
@@ -73,7 +88,10 @@ int los_nb_init(const int8_t* host, const int8_t* port, sec_param_s* psk)
     while(1)
     {
         ret = nb_hw_detect();
+<<<<<<< HEAD
         printf("call nb_hw_detect,ret is %d\n",ret);
+=======
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
         if(ret == AT_OK)
             break;
         //LOS_TaskDelay(1000);

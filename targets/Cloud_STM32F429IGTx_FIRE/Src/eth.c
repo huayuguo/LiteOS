@@ -31,7 +31,11 @@
  * Import, export and usage of Huawei LiteOS in any manner by you shall be in compliance with such
  * applicable export control laws and regulations.
  *---------------------------------------------------------------------------*/
+<<<<<<< HEAD
 #ifdef WITH_LWIP
+=======
+
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 #include "eth.h"
 #include "stm32f4xx_hal.h"
 #include "stm32f4xx_hal_eth.h"
@@ -242,6 +246,7 @@ static int8_t eth_init(struct netif *netif)
         netif->flags |= NETIF_FLAG_LINK_UP;
     }
 
+<<<<<<< HEAD
 #if LWIP_IPV6_MLD
     {
         /* add 33:33:xx:xx:xx:xx for ipv6 multicast */
@@ -251,6 +256,8 @@ static int8_t eth_init(struct netif *netif)
      }
 #endif
 
+=======
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
     /* Initialize Tx Descriptors list: Chain Mode */
     (void)HAL_ETH_DMATxDescListInit(&heth, DMATxDscrTab, &Tx_Buff[0][0], ETH_TXBUFNB);
 
@@ -281,10 +288,13 @@ static int8_t eth_init(struct netif *netif)
     netif->flags |= NETIF_FLAG_BROADCAST;
 #endif /* LWIP_ARP */
 
+<<<<<<< HEAD
 #if LWIP_IPV6_MLD
     netif->flags |= NETIF_FLAG_MLD6;
 #endif
 
+=======
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
     if (ERR_OK != sys_sem_new(&s_xSemaphore, 1))
     {
         return -1;
@@ -462,11 +472,22 @@ static struct pbuf *eth_input(struct netif *netif)
 
     return p;
 }
+<<<<<<< HEAD
 struct ethernet_api g_eth_api = {
     .init     = eth_init,
     .output   = eth_output,
     .input    = eth_input,
 };
 #endif
+=======
+
+struct ethernet_api g_eth_api =
+{
+    .init     = eth_init,
+    .output   = eth_output,
+    .input    = eth_input
+};
+
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 
 

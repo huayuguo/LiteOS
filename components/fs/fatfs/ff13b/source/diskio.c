@@ -8,7 +8,11 @@
 /*-----------------------------------------------------------------------*/
 
 #include "diskio.h"		/* FatFs lower layer API */
+<<<<<<< HEAD
 #include "fs/los_fatfs.h"
+=======
+#include "los_fatfs.h"
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 
 extern struct disk_mnt disk;
 

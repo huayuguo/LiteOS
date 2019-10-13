@@ -70,12 +70,14 @@
 #endif
 
 #include "mbedtls/net_sockets.h"
+#include "mbedtls/ssl_internal.h"
 #include "mbedtls/ssl.h"
 #include "mbedtls/entropy.h"
 #include "mbedtls/ctr_drbg.h"
 #include "mbedtls/error.h"
 #include "mbedtls/timing.h"
 
+<<<<<<< HEAD
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -91,6 +93,8 @@ typedef enum
     VERIFY_WITH_CERT,
 }verify_type_e;
 
+=======
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 typedef struct
 {
     union
@@ -102,6 +106,7 @@ typedef struct
         }c;
         struct
         {
+<<<<<<< HEAD
             const char *local_port;
         }s;
     }u;
@@ -109,11 +114,19 @@ typedef struct
     int client_or_server;
     int udp_or_tcp;
     verify_type_e psk_or_cert;
+=======
+            uint32_t timeout;
+            const char *local_port;
+        }s;
+    }u;
+    int client_or_server;
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
     void (*step_notify)(void *param);
     void (*finish_notify)(void *param);
     void *param;
 }dtls_shakehand_info_s;
 
+<<<<<<< HEAD
 typedef struct
 {
     union
@@ -137,6 +150,11 @@ typedef struct
 void dtls_init(void);
 
 mbedtls_ssl_context *dtls_ssl_new(dtls_establish_info_s *info, char plat_type);
+=======
+void dtls_int(void);
+
+mbedtls_ssl_context *dtls_ssl_new_with_psk(char *psk, unsigned psk_len, char *psk_identity, char plat_type);
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 
 int dtls_shakehand(mbedtls_ssl_context *ssl, const dtls_shakehand_info_s *info);
 
@@ -150,8 +168,12 @@ int dtls_accept( mbedtls_net_context *bind_ctx,
                             mbedtls_net_context *client_ctx,
                             void *client_ip, size_t buf_size, size_t *ip_len );
 
+<<<<<<< HEAD
 #ifdef __cplusplus
 }
 #endif
 
 #endif
+=======
+
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842

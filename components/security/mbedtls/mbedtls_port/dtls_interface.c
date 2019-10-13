@@ -56,7 +56,11 @@
 #include "dtls_interface.h"
 #include "osdepends/atiny_osdep.h"
 #include "mbedtls/net_sockets.h"
+<<<<<<< HEAD
 #include "sal/atiny_socket.h"
+=======
+#include "atiny_socket.h"
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 
 #define MBEDTLS_DEBUG
 
@@ -72,6 +76,7 @@
 #endif
 
 
+<<<<<<< HEAD
 static void *atiny_calloc(size_t n, size_t size)
 {
     void *p = atiny_malloc(n * size);
@@ -98,11 +103,27 @@ mbedtls_ssl_context *dtls_ssl_new(dtls_establish_info_s *info, char plat_type)
     const char *pers = "ssl_client";
 
     dtls_init();
+=======
+
+mbedtls_ssl_context *dtls_ssl_new_with_psk(char *psk, unsigned psk_len, char *psk_identity, char plat_type)
+{
+    int ret;
+    mbedtls_ssl_context *ssl;
+    mbedtls_ssl_config *conf;
+    mbedtls_entropy_context *entropy;
+    mbedtls_ctr_drbg_context *ctr_drbg;
+    mbedtls_timing_delay_context * timer;
+
+    const char *pers = "dtls_client";
+
+    dtls_int();
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 
     ssl       = mbedtls_calloc(1, sizeof(mbedtls_ssl_context));
     conf      = mbedtls_calloc(1, sizeof(mbedtls_ssl_config));
     entropy   = mbedtls_calloc(1, sizeof(mbedtls_entropy_context));
     ctr_drbg  = mbedtls_calloc(1, sizeof(mbedtls_ctr_drbg_context));
+<<<<<<< HEAD
 #if defined(MBEDTLS_X509_CRT_PARSE_C)
     cacert    = mbedtls_calloc(1, sizeof(mbedtls_x509_crt));
 #endif
@@ -114,6 +135,12 @@ mbedtls_ssl_context *dtls_ssl_new(dtls_establish_info_s *info, char plat_type)
         || NULL == cacert
 #endif
         )
+=======
+    timer     = mbedtls_calloc(1, sizeof(mbedtls_timing_delay_context));
+
+    if (NULL == ssl || NULL == conf || entropy == NULL ||
+            NULL == ctr_drbg)
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
     {
         goto exit_fail;
     }
@@ -146,6 +173,7 @@ mbedtls_ssl_context *dtls_ssl_new(dtls_establish_info_s *info, char plat_type)
 
     MBEDTLS_LOG("setting up the SSL structure");
 
+<<<<<<< HEAD
     if (info->udp_or_tcp == MBEDTLS_NET_PROTO_UDP)
     {
         ret = mbedtls_ssl_config_defaults(conf,
@@ -162,6 +190,12 @@ mbedtls_ssl_context *dtls_ssl_new(dtls_establish_info_s *info, char plat_type)
     }
 
     if (ret != 0)
+=======
+    if ((ret = mbedtls_ssl_config_defaults(conf,
+                                           plat_type,
+                                           MBEDTLS_SSL_TRANSPORT_DATAGRAM,
+                                           MBEDTLS_SSL_PRESET_DEFAULT)) != 0)
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
     {
         MBEDTLS_LOG("mbedtls_ssl_config_defaults failed: -0x%x", -ret);
         goto exit_fail;
@@ -175,8 +209,14 @@ mbedtls_ssl_context *dtls_ssl_new(dtls_establish_info_s *info, char plat_type)
         mbedtls_ssl_conf_read_timeout(conf, TLS_SHAKEHAND_TIMEOUT);
     }
 
+<<<<<<< HEAD
 #if defined(MBEDTLS_KEY_EXCHANGE__SOME__PSK_ENABLED)
     if (info->psk_or_cert == VERIFY_WITH_PSK)
+=======
+    if ((ret = mbedtls_ssl_conf_psk(conf, (const unsigned char *)psk, psk_len,
+                                    (const unsigned char *) psk_identity,
+                                    strlen(psk_identity))) != 0)
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
     {
         if ((ret = mbedtls_ssl_conf_psk(conf,
                                         info->v.p.psk,
@@ -203,6 +243,7 @@ mbedtls_ssl_context *dtls_ssl_new(dtls_establish_info_s *info, char plat_type)
         mbedtls_ssl_conf_ca_chain(conf, cacert, NULL);
     }
 #endif
+    mbedtls_ssl_conf_dtls_cookies( conf, NULL, NULL,NULL );
 
 
 #ifndef WITH_MQTT
@@ -217,13 +258,30 @@ mbedtls_ssl_context *dtls_ssl_new(dtls_establish_info_s *info, char plat_type)
         goto exit_fail;
     }
 
+<<<<<<< HEAD
     if (info->udp_or_tcp == MBEDTLS_NET_PROTO_UDP)
+=======
+#if defined(MBEDTLS_X509_CRT_PARSE_C)
+#if !(defined(WITH_CA_UNI) || defined(WITH_CA_BI))
+
+    if ((ret = mbedtls_ssl_set_hostname(ssl, SERVER_NAME)) != 0)
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
     {
         mbedtls_ssl_set_timer_cb(ssl, timer, mbedtls_timing_set_delay,
                                  mbedtls_timing_get_delay);
     }
 
+<<<<<<< HEAD
     MBEDTLS_LOG("set SSL structure succeed");
+=======
+#endif
+#endif
+
+    mbedtls_ssl_set_timer_cb( ssl, timer, mbedtls_timing_set_delay,
+                                            mbedtls_timing_get_delay );
+
+    MBEDTLS_LOG("set DTLS structure succeed");
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 
     return ssl;
 
@@ -272,6 +330,18 @@ static inline uint32_t dtls_gettime()
 {
     return (uint32_t)(atiny_gettime_ms() / 1000);
 }
+<<<<<<< HEAD
+=======
+
+int dtls_shakehand(mbedtls_ssl_context *ssl, const dtls_shakehand_info_s *info)
+{
+    int ret = MBEDTLS_ERR_NET_CONNECT_FAILED;
+    uint32_t change_value = 0;
+    mbedtls_net_context *server_fd = NULL;
+    mbedtls_timing_delay_context *timer = NULL;
+    uint32_t max_value;
+
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 
 int dtls_shakehand(mbedtls_ssl_context *ssl, const dtls_shakehand_info_s *info)
 {
@@ -294,9 +364,27 @@ int dtls_shakehand(mbedtls_ssl_context *ssl, const dtls_shakehand_info_s *info)
         server_fd = (mbedtls_net_context*)atiny_net_bind(NULL, info->u.s.local_port, MBEDTLS_NET_PROTO_UDP);
     }
 
+<<<<<<< HEAD
     if (server_fd == NULL)
     {
         MBEDTLS_LOG("connect failed! mode %d", info->client_or_server);
+=======
+    MBEDTLS_LOG("connecting to udp");
+
+
+    if (MBEDTLS_SSL_IS_CLIENT == info->client_or_server)
+    {
+        server_fd = mbedtls_net_connect(info->u.c.host, info->u.c.port, MBEDTLS_NET_PROTO_UDP);
+    }
+    else
+    {
+        server_fd = (mbedtls_net_context*)atiny_net_bind(NULL, info->u.s.local_port, MBEDTLS_NET_PROTO_UDP);
+    }
+
+    if (server_fd == NULL)
+    {
+		MBEDTLS_LOG("connect failed! mode %d", info->client_or_server);
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
         ret = MBEDTLS_ERR_NET_CONNECT_FAILED;
         goto exit_fail;
     }
@@ -309,12 +397,20 @@ int dtls_shakehand(mbedtls_ssl_context *ssl, const dtls_shakehand_info_s *info)
     max_value = ((MBEDTLS_SSL_IS_SERVER == info->client_or_server || info->udp_or_tcp == MBEDTLS_NET_PROTO_UDP) ?
                 (dtls_gettime() + info->timeout) :  50);
 
+    max_value = ((MBEDTLS_SSL_IS_SERVER == info->client_or_server) ?
+                (dtls_gettime() + info->u.s.timeout) : 10);
+
+
     do
     {
         ret = mbedtls_ssl_handshake(ssl);
         //MBEDTLS_LOG("mbedtls_ssl_handshake %d %d", change_value, max_value);
         //LOS_TaskDelay(1);
+<<<<<<< HEAD
         if (MBEDTLS_SSL_IS_CLIENT == info->client_or_server && info->udp_or_tcp == MBEDTLS_NET_PROTO_TCP)
+=======
+        if (MBEDTLS_SSL_IS_CLIENT == info->client_or_server)
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
         {
             change_value++;
         }
@@ -327,12 +423,19 @@ int dtls_shakehand(mbedtls_ssl_context *ssl, const dtls_shakehand_info_s *info)
         {
             info->step_notify(info->param);
         }
+<<<<<<< HEAD
     }
     while ((ret == MBEDTLS_ERR_SSL_WANT_READ ||
             ret == MBEDTLS_ERR_SSL_WANT_WRITE ||
             (ret == MBEDTLS_ERR_SSL_TIMEOUT &&
             info->udp_or_tcp == MBEDTLS_NET_PROTO_TCP)) &&
             (change_value < max_value));
+=======
+
+    }
+    while ((ret == MBEDTLS_ERR_SSL_WANT_READ ||
+            ret == MBEDTLS_ERR_SSL_WANT_WRITE) && change_value < max_value);
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 
     if (info->finish_notify)
     {
@@ -382,8 +485,19 @@ void dtls_ssl_destroy(mbedtls_ssl_context *ssl)
     mbedtls_entropy_context      *entropy = NULL;
     mbedtls_net_context          *server_fd = NULL;
     mbedtls_timing_delay_context *timer = NULL;
+<<<<<<< HEAD
 #if defined(MBEDTLS_X509_CRT_PARSE_C)
     mbedtls_x509_crt             *cacert = NULL;
+=======
+#if defined(WITH_CA_UNI)
+    mbedtls_x509_crt *cacert = NULL;
+#elif defined(WITH_CA_BI)
+    mbedtls_x509_crt *cacert = NULL;
+    mbedtls_x509_crt *clicert = NULL;
+    mbedtls_pk_context *pkey = NULL;
+    mbedtls_ssl_key_cert *head = NULL;
+    mbedtls_ssl_key_cert *cur = NULL;
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 #endif
 
     if (ssl == NULL)
@@ -394,8 +508,23 @@ void dtls_ssl_destroy(mbedtls_ssl_context *ssl)
     conf       = ssl->conf;
     server_fd  = (mbedtls_net_context *)ssl->p_bio;
     timer      = (mbedtls_timing_delay_context *)ssl->p_timer;
+<<<<<<< HEAD
 #if defined(MBEDTLS_X509_CRT_PARSE_C)
     cacert     = (mbedtls_x509_crt *)conf->ca_chain;
+=======
+#if defined(WITH_CA_UNI)
+    cacert     = conf->ca_chain;
+#elif defined(WITH_CA_BI)
+	head = conf->key_cert;
+	cur = head;
+
+    while( cur->next != NULL )
+        cur = cur->next;
+
+    cacert     = conf->ca_chain;
+    clicert    = cur->cert;
+    pkey       = cur->key;
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 #endif
 
     if (conf)
@@ -407,6 +536,31 @@ void dtls_ssl_destroy(mbedtls_ssl_context *ssl)
             entropy =  ctr_drbg->p_entropy;
         }
     }
+
+#if defined(WITH_CA_UNI)
+    if(cacert)
+    {
+		mbedtls_x509_crt_free(cacert);
+        mbedtls_free(cacert);
+    }
+#elif defined(WITH_CA_BI)
+    if(cacert)
+    {
+        mbedtls_x509_crt_free(cacert);
+        mbedtls_free(cacert);
+    }
+    if(clicert)
+    {
+        mbedtls_x509_crt_free(clicert);
+        mbedtls_free(clicert);
+    }
+	if(pkey)
+    {
+        mbedtls_pk_free(pkey);
+        mbedtls_free(pkey);
+    }
+#endif
+
 
     if (server_fd)
     {
@@ -489,7 +643,11 @@ int dtls_read(mbedtls_ssl_context *ssl, unsigned char *buf, size_t len, uint32_t
     return ret;
 }
 
+<<<<<<< HEAD
 void dtls_init(void)
+=======
+void dtls_int(void)
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 {
     (void)mbedtls_platform_set_calloc_free(atiny_calloc, atiny_free);
     (void)mbedtls_platform_set_snprintf(atiny_snprintf);

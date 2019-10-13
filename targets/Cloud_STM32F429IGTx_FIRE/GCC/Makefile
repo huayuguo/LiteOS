@@ -5,8 +5,12 @@
 # ------------------------------------------------
 # Generic Makefile (based on gcc)
 # ------------------------------------------------
+<<<<<<< HEAD
 include config.mk
 include prune.mk
+=======
+
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 ######################################
 # target
 ######################################
@@ -19,6 +23,7 @@ DEBUG = 1
 # optimization
 OPT = -Og
 
+<<<<<<< HEAD
 
 USE_OTA := no
 OTA_IS_NEED_DTLS := no
@@ -34,6 +39,31 @@ ifeq ($(USE_OTA), yes)
     endif
 endif
 
+=======
+#######################################
+# network
+#######################################
+USE_AT_FRAMEWORK := yes
+ifeq ($(USE_AT_FRAMEWORK), yes)
+#ESP8266   # SIM900A  # NB_NEUL95
+	NETWORK_TYPE := SIM900A
+endif
+
+#######################################
+# bootloader
+#######################################
+USE_BOOTLOADER := no
+
+#######################################
+# fota
+#######################################
+USE_FOTA := yes
+
+#######################################
+# sota
+#######################################
+USE_SOTA := no
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 
 #######################################
 # binaries
@@ -67,10 +97,33 @@ BUILD_DIR = build
 ######################################
 # source
 ######################################
+<<<<<<< HEAD
 # ASM
 ASM_SOURCES_s =  \
         ${wildcard $(PROJECTBASE)/los_startup_gcc.s}
 # C sources
+=======
+# C sources
+KERNEL_SRC =  \
+        ${wildcard $(TOP_DIR)/kernel/*.c} \
+        ${wildcard $(TOP_DIR)/kernel/base/core/*.c} \
+        ${wildcard $(TOP_DIR)/kernel/base/ipc/*.c} \
+        ${wildcard $(TOP_DIR)/kernel/base/mem/bestfit_little/*.c} \
+        ${wildcard $(TOP_DIR)/kernel/base/mem/membox/*.c} \
+        ${wildcard $(TOP_DIR)/kernel/base/mem/common/*.c} \
+        ${wildcard $(TOP_DIR)/kernel/base/misc/*.c} \
+        ${wildcard $(TOP_DIR)/kernel/base/om/*.c} \
+        ${wildcard $(TOP_DIR)/kernel/extended/tickless/*.c}
+        C_SOURCES += $(KERNEL_SRC)
+
+CMSIS_SRC =  \
+        ${wildcard $(TOP_DIR)/components/cmsis/*.c}
+        C_SOURCES += $(CMSIS_SRC)
+
+ARCH_SRC =  \
+        ${wildcard $(TOP_DIR)/arch/arm/arm-m/src/*.c}
+        C_SOURCES += $(ARCH_SRC)
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 
 HAL_DRIVER_SRC =  \
         $(TOP_DIR)/targets/Cloud_STM32F429IGTx_FIRE/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.c \
@@ -78,14 +131,27 @@ HAL_DRIVER_SRC =  \
         $(TOP_DIR)/targets/Cloud_STM32F429IGTx_FIRE/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.c \
         $(TOP_DIR)/targets/Cloud_STM32F429IGTx_FIRE/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c \
         $(TOP_DIR)/targets/Cloud_STM32F429IGTx_FIRE/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.c \
+<<<<<<< HEAD
         $(TOP_DIR)/targets/Cloud_STM32F429IGTx_FIRE/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c \
         $(TOP_DIR)/targets/Cloud_STM32F429IGTx_FIRE/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c \
         $(TOP_DIR)/targets/Cloud_STM32F429IGTx_FIRE/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.c \
+=======
+        $(TOP_DIR)/targets/Cloud_STM32F429IGTx_FIRE/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.c \
+        $(TOP_DIR)/targets/Cloud_STM32F429IGTx_FIRE/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c \
+        $(TOP_DIR)/targets/Cloud_STM32F429IGTx_FIRE/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c \
+        $(TOP_DIR)/targets/Cloud_STM32F429IGTx_FIRE/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.c \
+        $(TOP_DIR)/targets/Cloud_STM32F429IGTx_FIRE/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.c \
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
         $(TOP_DIR)/targets/Cloud_STM32F429IGTx_FIRE/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.c \
         $(TOP_DIR)/targets/Cloud_STM32F429IGTx_FIRE/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.c \
         $(TOP_DIR)/targets/Cloud_STM32F429IGTx_FIRE/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.c \
         $(TOP_DIR)/targets/Cloud_STM32F429IGTx_FIRE/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.c \
         $(TOP_DIR)/targets/Cloud_STM32F429IGTx_FIRE/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.c \
+<<<<<<< HEAD
+=======
+        $(TOP_DIR)/targets/Cloud_STM32F429IGTx_FIRE/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_eth.c \
+        $(TOP_DIR)/targets/Cloud_STM32F429IGTx_FIRE/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rng.c \
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
         $(TOP_DIR)/targets/Cloud_STM32F429IGTx_FIRE/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.c \
         $(TOP_DIR)/targets/Cloud_STM32F429IGTx_FIRE/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_iwdg.c
         C_SOURCES += $(HAL_DRIVER_SRC)
@@ -93,6 +159,7 @@ HAL_DRIVER_SRC =  \
 HARDWARE_SRC =  \
         ${wildcard $(TOP_DIR)/targets/Cloud_STM32F429IGTx_FIRE/Hardware/Src/*.c}
         C_SOURCES += $(HARDWARE_SRC)
+<<<<<<< HEAD
 		
 ifeq ($(USE_BOOTLOADER), no)
 HAL_DRIVER_SRC_NO_BOOTLOADER =  \
@@ -137,6 +204,20 @@ LWIP_PORT_SRC = \
 endif
 
 ifneq ($(OTA_IS_NEED_DTLS)_$(WITH_DTLS), no_no)
+=======
+
+LWIP_SRC =  \
+        ${wildcard $(TOP_DIR)/components/net/lwip-2.0.3/src/api/*.c} \
+        ${wildcard $(TOP_DIR)/components/net/lwip-2.0.3/src/core/ipv4/*.c} \
+        ${wildcard $(TOP_DIR)/components/net/lwip-2.0.3/src/core/*.c} \
+        ${wildcard $(TOP_DIR)/components/net/lwip-2.0.3/src/netif/ethernet.c}
+        C_SOURCES += $(LWIP_SRC)
+
+LWIP_PORT_SRC = \
+        ${wildcard $(TOP_DIR)/components/net/lwip_port/OS/*.c}
+        C_SOURCES += $(LWIP_PORT_SRC)
+
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 MBEDTLS_SRC = \
         ${wildcard $(TOP_DIR)/components/security/mbedtls/mbedtls-2.6.0/library/*.c}
         C_SOURCES += $(MBEDTLS_SRC)
@@ -144,9 +225,13 @@ MBEDTLS_SRC = \
 MBEDTLS_PORT_SRC = \
         ${wildcard $(TOP_DIR)/components/security/mbedtls/mbedtls_port/*.c}
         C_SOURCES += $(MBEDTLS_PORT_SRC)
+<<<<<<< HEAD
 endif
 
 ifeq ($(WITH_LWM2M), yes)
+=======
+
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 ER_COAP_SRC = \
         ${wildcard $(TOP_DIR)/components/connectivity/lwm2m/core/er-coap-13/er-coap-13.c}
         C_SOURCES += $(ER_COAP_SRC)
@@ -156,6 +241,7 @@ LWM2M_SRC = \
 		${wildcard $(TOP_DIR)/components/connectivity/lwm2m/examples/shared/*.c}
         C_SOURCES += $(LWM2M_SRC)
 
+<<<<<<< HEAD
 ATINY_TINY_SRC = \
         ${wildcard $(TOP_DIR)/components/connectivity/agent_tiny/atiny_lwm2m/*.c}
 
@@ -272,6 +358,24 @@ CMOCKERY_AGENTTINY_TEST_SRC = \
         C_SOURCES += $(CMOCKERY_AGENTTINY_TEST_SRC)
 endif
 endif
+=======
+OS_ADAPTER_SRC = \
+        ${wildcard $(TOP_DIR)/components/connectivity/agent_tiny/osadapter/*.c}
+        C_SOURCES += $(OS_ADAPTER_SRC)
+		
+NEWLIB_SRC = \
+        ${wildcard $(TOP_DIR)/components/lib/libc/malloc.c}
+        C_SOURCES += $(NEWLIB_SRC)
+
+ATINY_TINY_SRC = \
+        ${wildcard $(TOP_DIR)/components/connectivity/agent_tiny/lwm2m_client/*.c}
+        C_SOURCES += $(ATINY_TINY_SRC)
+
+AGENT_DEMO_SRC = \
+        ${wildcard $(TOP_DIR)/components/connectivity/agent_tiny/examples/*.c}
+        C_SOURCES += $(AGENT_DEMO_SRC)
+
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 
 USER_SRC =  \
         $(TOP_DIR)/targets/Cloud_STM32F429IGTx_FIRE/Src/main.c \
@@ -279,6 +383,7 @@ USER_SRC =  \
         $(TOP_DIR)/targets/Cloud_STM32F429IGTx_FIRE/Src/usart.c \
         $(TOP_DIR)/targets/Cloud_STM32F429IGTx_FIRE/Src/dwt.c \
         $(TOP_DIR)/targets/Cloud_STM32F429IGTx_FIRE/Src/eth.c \
+<<<<<<< HEAD
         $(TOP_DIR)/targets/Cloud_STM32F429IGTx_FIRE/Src/sys_init.c \
         $(TOP_DIR)/targets/Cloud_STM32F429IGTx_FIRE/Src/user_task.c
         C_SOURCES += $(USER_SRC)
@@ -344,10 +449,59 @@ endif
 
 
 # ASM sources
+=======
+        $(TOP_DIR)/targets/Cloud_STM32F429IGTx_FIRE/Src/sys_init.c
+        C_SOURCES += $(USER_SRC)
+
+ifeq ($(USE_SOTA), yes)
+SOTA_SRC = \
+        ${wildcard $(TOP_DIR)/components/connectivity/sota/*.c}
+        C_SOURCES += $(SOTA_SRC)
+endif
+
+ifeq ($(USE_AT_FRAMEWORK), yes)
+ATADAPTOR_SRC = \
+    ${wildcard $(TOP_DIR)/components/connectivity/at_frame/*.c} \
+     $(TOP_DIR)/targets/Cloud_STM32F429IGTx_FIRE/Src/at_hal.c
+    C_SOURCES += $(ATADAPTOR_SRC)
+
+ifeq ($(NETWORK_TYPE), ESP8266)
+    USER_DRIVERS_SRC = ${wildcard $(TOP_DIR)/drivers/devices/wifi/esp8266/*.c}
+else ifeq ($(NETWORK_TYPE), SIM900A)
+    USER_DRIVERS_SRC = ${wildcard $(TOP_DIR)/drivers/devices/gprs/*.c}
+else ifeq ($(NETWORK_TYPE), NB_NEUL95)
+    USER_DRIVERS_SRC = \
+	${wildcard $(TOP_DIR)/drivers/devices/nb/*.c} \
+	${wildcard $(TOP_DIR)/components/connectivity/nb_iot/*.c}
+endif
+    C_SOURCES += $(USER_DRIVERS_SRC)
+endif
+
+ifeq ($(USE_FOTA), yes)
+FOTA_SRC = \
+        ${wildcard $(TOP_DIR)/components/fota/ota/*.c} \
+        ${wildcard $(TOP_DIR)/components/fota/utility/*.c} \
+        ${wildcard $(TOP_DIR)/components/connectivity/agent_tiny/lwm2m_client/fota/*.c} 
+        C_SOURCES += $(FOTA_SRC)
+
+FIRMWARE_UPDATE_SRC = \
+        ${wildcard $(TOP_DIR)/components/connectivity/agent_tiny/firmware_update/*.c}
+        C_SOURCES += $(FIRMWARE_UPDATE_SRC)
+		
+C_SOURCES += ${wildcard  $(TOP_DIR)/components/fota/fota_package_storage_device/*.c}
+C_SOURCES += $(TOP_DIR)/targets/Cloud_STM32F429IGTx_FIRE/Src/board.c
+C_SOURCES += $(TOP_DIR)/targets/Cloud_STM32F429IGTx_FIRE/Src/fota_port.c
+endif
+
+# ASM sources
+ASM_SOURCES_s =  \
+        ${wildcard $(PROJECTBASE)/los_startup_gcc.s}
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 
 ASM_SOURCES_S =  \
         ${wildcard $(TOP_DIR)/arch/arm/arm-m/cortex-m4/gcc/los_dispatch_gcc.S}
 
+<<<<<<< HEAD
 #blow use bootloader
 else 
 
@@ -364,6 +518,8 @@ USER_SRC = \
 
 endif
 
+=======
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 
 ######################################
 # firmware library
@@ -391,6 +547,7 @@ AS_DEFS =
 C_DEFS =  \
         -D USE_HAL_DRIVER \
         -D STM32F429xx \
+<<<<<<< HEAD
         -D NDEBUG
 
 ifeq ($(WITH_LWM2M), yes)
@@ -447,12 +604,33 @@ endif
 
 ifeq ($(USE_FOTA), yes)
 		C_DEFS += -DCONFIG_FEATURE_FOTA
+=======
+        -D USE_MBED_TLS \
+        -D MBEDTLS_CONFIG_FILE=\"los_mbedtls_config.h\" \
+        -D LWM2M_LITTLE_ENDIAN \
+        -D LWM2M_CLIENT_MODE \
+        -D NDEBUG \
+		-D LWM2M_BOOTSTRAP \
+        -D LWIP_TIMEVAL_PRIVATE=0 \
+        -D WITH_DTLS \
+        -D ATINY_DEBUG \
+        -D LWM2M_WITH_LOGS
+#        -D SUPPORT_DTLS_SRV
+#       WITH_DTLS change the place with LWIP_TIMEVAL_PRIVATE
+
+
+ifeq ($(USE_AT_FRAMEWORK), yes)
+        C_DEFS += -DWITH_AT_FRAMEWORK -DUSE_$(NETWORK_TYPE)
+else
+        C_DEFS += -D WITH_LWIP
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 endif
 
 ifeq ($(USE_SOTA), yes)
 		C_DEFS += -DWITH_SOTA
 endif
 
+<<<<<<< HEAD
 ifeq ($(LWM2M_BOOTSTRAP), yes)
 		C_DEFS += -DLWM2M_BOOTSTRAP
 endif
@@ -488,16 +666,41 @@ ifeq ($(WITH_IPV6), yes)
 C_DEFS += -DLWIP_IPV6=1
 else
 C_DEFS += -DLWIP_IPV6=0
+=======
+ifeq ($(USE_FOTA), yes)
+		C_DEFS += -DCONFIG_FEATURE_FOTA
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 endif
 
 # AS includes
 AS_INCLUDES =
 
 # C includes
+<<<<<<< HEAD
+=======
+KERNEL_INC = \
+        -I $(TOP_DIR)/kernel/base/include  \
+        -I $(TOP_DIR)/kernel/extended/include  \
+        -I $(TOP_DIR)/kernel/include \
+        -I $(TOP_DIR)/kernel/base/core
+        C_INCLUDES += $(KERNEL_INC)
+
+CMSIS_INC = \
+        -I $(TOP_DIR)/components/cmsis  \
+        -I $(TOP_DIR)/components/cmsis/2.0
+        C_INCLUDES += $(CMSIS_INC)
+
+ARCH_INC = \
+        -I $(TOP_DIR)/arch/arm/arm-m/include \
+        -I $(TOP_DIR)/arch/arm/common/cmsis
+        C_INCLUDES += $(ARCH_INC)
+
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 HAL_DRIVER_INC = \
         -I $(TOP_DIR)/targets/Cloud_STM32F429IGTx_FIRE/Drivers/STM32F4xx_HAL_Driver/Inc \
         -I $(TOP_DIR)/targets/Cloud_STM32F429IGTx_FIRE/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy
         C_INCLUDES += $(HAL_DRIVER_INC)
+<<<<<<< HEAD
 		
 INCLUDE_INC = \
         -I $(TOP_DIR)/include
@@ -506,11 +709,14 @@ INCLUDE_INC = \
 LWM2M_ATINY_INC = \
         -I $(TOP_DIR)/components/connectivity/agent_tiny/atiny_lwm2m        
         C_INCLUDES += $(LWM2M_ATINY_INC)		
+=======
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 
 HARDWARE_INC = \
         -I $(TOP_DIR)/targets/Cloud_STM32F429IGTx_FIRE/Hardware/Inc
         C_INCLUDES += $(HARDWARE_INC)
 
+<<<<<<< HEAD
 USER_INC = \
         -I $(TOP_DIR)/targets/Cloud_STM32F429IGTx_FIRE/Inc
         C_INCLUDES += $(USER_INC)
@@ -561,11 +767,26 @@ endif
 ifneq ($(OTA_IS_NEED_DTLS)_$(WITH_DTLS), no_no)
 MBEDTLS_INC = \
         -I $(TOP_DIR)/components/security/mbedtls/mbedtls-2.6.0/include
+=======
+LWIP_INC = \
+        -I $(TOP_DIR)/components/net/lwip-2.0.3/src/include
+        C_INCLUDES += $(LWIP_INC)
+
+LWIP_PORT_INC = \
+        -I $(TOP_DIR)/components/net/lwip_port \
+        -I $(TOP_DIR)/components/net/lwip_port/OS
+        C_INCLUDES += $(LWIP_PORT_INC)
+
+MBEDTLS_INC = \
+        -I $(TOP_DIR)/components/security/mbedtls/mbedtls-2.6.0/include \
+        -I $(TOP_DIR)/components/security/mbedtls/mbedtls-2.6.0/include/mbedtls
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
         C_INCLUDES += $(MBEDTLS_INC)
 
 MBEDTLS_PORT_INC = \
         -I $(TOP_DIR)/components/security/mbedtls/mbedtls_port
         C_INCLUDES += $(MBEDTLS_PORT_INC)
+<<<<<<< HEAD
 endif
 
 ifeq ($(WITH_LWM2M), yes)
@@ -628,6 +849,74 @@ FLAG_INC = \
         C_INCLUDES += $(FLAG_INC)
 endif
 
+=======
+
+ER_COAP_INC = \
+        -I $(TOP_DIR)/components/connectivity/lwm2m/core/er-coap-13
+        C_INCLUDES += $(ER_COAP_INC)
+
+LWM2M_INC = \
+        -I $(TOP_DIR)/components/connectivity/lwm2m/core \
+		-I $(TOP_DIR)/components/connectivity/lwm2m//examples/shared
+        C_INCLUDES += $(LWM2M_INC)
+
+OS_ADAPTER_INC = \
+        -I $(TOP_DIR)/components/connectivity/agent_tiny/osadapter
+        C_INCLUDES += $(OS_ADAPTER_INC)
+
+ATINY_TINY_INC = \
+        -I $(TOP_DIR)/components/connectivity/agent_tiny/lwm2m_client \
+        -I $(TOP_DIR)/components/connectivity/agent_tiny/comm/include
+        C_INCLUDES += $(ATINY_TINY_INC)
+
+AGENT_DEMO_INC = \
+        -I $(TOP_DIR)/components/connectivity/agent_tiny/examples
+        C_INCLUDES += $(AGENT_DEMO_INC)
+
+USER_INC = \
+		-I $(TOP_DIR)/targets/Cloud_STM32F429IGTx_FIRE/Inc \
+		-I $(TOP_DIR)/targets/Cloud_STM32F429IGTx_FIRE/OS_CONFIG
+		C_INCLUDES += $(USER_INC)
+		
+ifeq ($(USE_FOTA), yes)
+
+FOTA_INC = \
+        -I $(TOP_DIR)/components/fota/ota \
+        -I $(TOP_DIR)/components/fota/utility \
+        -I $(TOP_DIR)/components/connectivity/agent_tiny/lwm2m_client/fota
+        C_INCLUDES += $(FOTA_INC)
+		
+FIRMWARE_UPDATE_INC = \
+        -I $(TOP_DIR)/components/connectivity/agent_tiny/firmware_update
+        C_INCLUDES += $(FIRMWARE_UPDATE_INC)
+
+
+C_INCLUDES += -I $(TOP_DIR)/components/fota/fota_package_storage_device
+endif
+
+ifeq ($(USE_SOTA), yes)
+SOTA_INC = \
+        -I $(TOP_DIR)/components/connectivity/sota
+        C_INCLUDES += $(SOTA_INC)
+endif
+
+ifeq ($(USE_AT_FRAMEWORK), yes)
+ATADAPTOR_INC = \
+        -I $(TOP_DIR)/components/connectivity/at_frame \
+        -I $(TOP_DIR)/targets/Cloud_STM32F429IGTx_FIRE/Src
+        C_INCLUDES += $(ATADAPTOR_INC)
+ifeq ($(NETWORK_TYPE), ESP8266)
+    USER_DRIVERS_INC = -I $(TOP_DIR)/drivers/devices/wifi
+else ifeq ($(NETWORK_TYPE), SIM900A)
+    USER_DRIVERS_INC = -I $(TOP_DIR)/drivers/devices/gprs
+else ifeq ($(NETWORK_TYPE), NB_NEUL95)
+    USER_DRIVERS_INC = \
+	-I $(TOP_DIR)/components/connectivity/nb_iot \
+	-I $(TOP_DIR)/drivers/devices/nb
+endif
+    C_INCLUDES += $(USER_DRIVERS_INC)
+endif
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 
 
 # compile gcc flags
@@ -641,7 +930,11 @@ endif
 
 
 # Generate dependency information
+<<<<<<< HEAD
 CFLAGS += -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$@"
+=======
+CFLAGS += -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)"
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 
 
 #######################################
@@ -649,6 +942,7 @@ CFLAGS += -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$@"
 #######################################
 # link script
 ifeq ($(USE_BOOTLOADER), yes)
+<<<<<<< HEAD
 LD_FILE = STM32F429IGTx_LiteOS.ld
 else ifeq ($(USE_OTA), yes)
 LD_FILE = STM32F429IGTx_LiteOS_bootloader.ld
@@ -656,10 +950,17 @@ else
 LD_FILE = STM32F429IGTx_LiteOS.ld
 endif
 
+=======
+	LD_FILE = STM32F429IGTx_LiteOS_Bootloader.ld
+else
+	LD_FILE = STM32F429IGTx_LiteOS.ld
+endif
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 LDSCRIPT = $(PROJECTBASE)/$(LD_FILE)
 
 # libraries
 LIBS = -lc -lm -lnosys
+<<<<<<< HEAD
 ifeq ($(USE_OTA), yes)
 LIBS += -lhwpatch
 endif
@@ -673,6 +974,15 @@ endif
 # default action: build all
 all: $(BUILD_DIR)/$(TARGET).elf $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).bin
 
+=======
+LIBDIR =
+LDFLAGS = $(MCU) -specs=nano.specs -T$(LDSCRIPT) $(LIBDIR) $(LIBS) -Wl,-Map=$(BUILD_DIR)/$(TARGET).map,--cref -Wl,--gc-sections
+
+# default action: build all
+all: $(BUILD_DIR)/$(TARGET).elf $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).bin
+
+
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 #######################################
 # build the application
 #######################################
@@ -682,6 +992,7 @@ vpath %.c $(sort $(dir $(C_SOURCES)))
 # list of ASM program objects
 OBJECTS += $(addprefix $(BUILD_DIR)/,$(notdir $(ASM_SOURCES_s:.s=.o)))
 vpath %.s $(sort $(dir $(ASM_SOURCES_s)))
+<<<<<<< HEAD
 ifeq ($(USE_BOOTLOADER), no)
 OBJECTS += $(addprefix $(BUILD_DIR)/,$(notdir $(ASM_SOURCES_S:.S=.o)))
 vpath %.S $(sort $(dir $(ASM_SOURCES_S)))
@@ -699,6 +1010,21 @@ $(BUILD_DIR)/%.o: %.S Makefile config.mk prune.mk | $(BUILD_DIR)
 endif
 
 $(BUILD_DIR)/$(TARGET).elf: $(OBJECTS) Makefile config.mk prune.mk
+=======
+OBJECTS += $(addprefix $(BUILD_DIR)/,$(notdir $(ASM_SOURCES_S:.S=.o)))
+vpath %.S $(sort $(dir $(ASM_SOURCES_S)))
+
+$(BUILD_DIR)/%.o: %.c Makefile | $(BUILD_DIR)
+	$(CC) -c $(CFLAGS) -Wa,-a,-ad,-alms=$(BUILD_DIR)/$(notdir $(<:.c=.lst)) $< -o $@
+
+$(BUILD_DIR)/%.o: %.s Makefile | $(BUILD_DIR)
+	$(AS) -c $(CFLAGS) $< -o $@
+
+$(BUILD_DIR)/%.o: %.S Makefile | $(BUILD_DIR)
+	$(AS) -c $(CFLAGS) $< -o $@
+
+$(BUILD_DIR)/$(TARGET).elf: $(OBJECTS) Makefile
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 	$(CC) $(OBJECTS) $(LDFLAGS) -o $@
 	$(SZ) $@
 
@@ -720,7 +1046,13 @@ clean:
 #######################################
 # dependencies
 #######################################
+<<<<<<< HEAD
 #-include $(shell mkdir .dep 2>/dev/null) $(wildcard .dep/*)
 -include $(wildcard $(BUILD_DIR)/*.d)
 
 # *** EOF ***
+=======
+-include $(shell mkdir .dep 2>/dev/null) $(wildcard .dep/*)
+
+# *** EOF ***
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842

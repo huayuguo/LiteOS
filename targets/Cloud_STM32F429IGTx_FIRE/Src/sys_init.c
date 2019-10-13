@@ -34,6 +34,7 @@
 
 #include "sys_init.h"
 
+<<<<<<< HEAD
 #ifdef WITH_LWIP
 struct     netif gnetif;
 uint8_t    IP_ADDRESS[4];
@@ -50,6 +51,17 @@ ip4_addr_t ipaddr;
 ip4_addr_t netmask;
 ip4_addr_t gw;
 #endif
+=======
+#ifndef AT_NBONLY
+
+struct netif gnetif;
+ip4_addr_t ipaddr;
+ip4_addr_t netmask;
+ip4_addr_t gw;
+uint8_t IP_ADDRESS[4];
+uint8_t NETMASK_ADDRESS[4];
+uint8_t GATEWAY_ADDRESS[4];
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 
 static void lwip_impl_register(void)
 {
@@ -63,7 +75,11 @@ void net_init(void)
     /* IP addresses initialization */
     IP_ADDRESS[0] = 192;
     IP_ADDRESS[1] = 168;
+<<<<<<< HEAD
     IP_ADDRESS[2] = 1;
+=======
+    IP_ADDRESS[2] = 0;
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
     IP_ADDRESS[3] = 115;
     NETMASK_ADDRESS[0] = 255;
     NETMASK_ADDRESS[1] = 255;
@@ -71,6 +87,7 @@ void net_init(void)
     NETMASK_ADDRESS[3] = 0;
     GATEWAY_ADDRESS[0] = 192;
     GATEWAY_ADDRESS[1] = 168;
+<<<<<<< HEAD
     GATEWAY_ADDRESS[2] = 1;
     GATEWAY_ADDRESS[3] = 1;
 
@@ -87,11 +104,17 @@ void net_init(void)
     IP4_ADDR(&gw, GATEWAY_ADDRESS[0], GATEWAY_ADDRESS[1], GATEWAY_ADDRESS[2], GATEWAY_ADDRESS[3]);
 #endif
 
+=======
+    GATEWAY_ADDRESS[2] = 0;
+    GATEWAY_ADDRESS[3] = 1;
+
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
     lwip_impl_register();
 
     /* Initilialize the LwIP stack without RTOS */
     tcpip_init(NULL, NULL);
     printf("lwip test init ok.\n");
+<<<<<<< HEAD
     
 
     (void)ethernetif_api_register(&g_eth_api);/*注册特定网卡的API*/
@@ -130,6 +153,16 @@ void net_init(void)
 #else
     (void)netif_add(&gnetif, &ipaddr, &netmask, &gw, NULL, ethernetif_init, tcpip_input);//lint !e546
 #endif
+=======
+    /* IP addresses initialization without DHCP (IPv4) */
+    IP4_ADDR(&ipaddr, IP_ADDRESS[0], IP_ADDRESS[1], IP_ADDRESS[2], IP_ADDRESS[3]);
+    IP4_ADDR(&netmask, NETMASK_ADDRESS[0], NETMASK_ADDRESS[1] , NETMASK_ADDRESS[2], NETMASK_ADDRESS[3]);
+    IP4_ADDR(&gw, GATEWAY_ADDRESS[0], GATEWAY_ADDRESS[1], GATEWAY_ADDRESS[2], GATEWAY_ADDRESS[3]);
+
+    (void)ethernetif_api_register(&g_eth_api);/*注册特定网卡的API*/
+    /* add the network interface (IPv4/IPv6) without RTOS */
+    (void)netif_add(&gnetif, &ipaddr, &netmask, &gw, NULL, &ethernetif_init, &ethernet_input);//lint !e546
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 
     /* Registers the default network interface */
     netif_set_default(&gnetif);
@@ -217,13 +250,21 @@ void SystemClock_Config(void)
 
     SystemCoreClockUpdate();
 }
+<<<<<<< HEAD
 #ifdef WITH_LWIP
+=======
+
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 void hieth_hw_init(void)
 {
     extern void ETH_IRQHandler(void);
     (void)LOS_HwiCreate(ETH_IRQn, 1, 0, ETH_IRQHandler, 0);
 }
+<<<<<<< HEAD
 #endif
+=======
+#ifndef AT_NBONLY
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 
 /*
  * atiny_adapter user interface
@@ -242,4 +283,8 @@ void atiny_reboot(void)
 {
     HAL_NVIC_SystemReset();
 }
+<<<<<<< HEAD
 
+=======
+#endif
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842

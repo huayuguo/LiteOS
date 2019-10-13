@@ -11,7 +11,11 @@
             <name>C-SPY</name>
             <archiveVersion>2</archiveVersion>
             <data>
+<<<<<<< HEAD
                 <version>30</version>
+=======
+                <version>29</version>
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
                 <wantNonLocal>1</wantNonLocal>
                 <debug>1</debug>
                 <option>
@@ -88,7 +92,11 @@
                 </option>
                 <option>
                     <name>OCLastSavedByProductVersion</name>
+<<<<<<< HEAD
                     <state>8.30.1.17146</state>
+=======
+                    <state>8.20.2.14834</state>
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
                 </option>
                 <option>
                     <name>UseFlashLoader</name>
@@ -214,10 +222,13 @@
                     <name>MassEraseBeforeFlashing</name>
                     <state>0</state>
                 </option>
+<<<<<<< HEAD
                 <option>
                     <name>OCMulticoreNrOfCoresSlave</name>
                     <state>1</state>
                 </option>
+=======
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
             </data>
         </settings>
         <settings>
@@ -954,6 +965,7 @@
             </data>
         </settings>
         <settings>
+<<<<<<< HEAD
             <name>NULINK_ID</name>
             <archiveVersion>2</archiveVersion>
             <data>
@@ -975,6 +987,8 @@
             </data>
         </settings>
         <settings>
+=======
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
             <name>PEMICRO_ID</name>
             <archiveVersion>2</archiveVersion>
             <data>
@@ -1003,7 +1017,11 @@
             <name>STLINK_ID</name>
             <archiveVersion>2</archiveVersion>
             <data>
+<<<<<<< HEAD
                 <version>5</version>
+=======
+                <version>4</version>
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
                 <wantNonLocal>1</wantNonLocal>
                 <debug>1</debug>
                 <option>
@@ -1012,7 +1030,11 @@
                 </option>
                 <option>
                     <name>CCSTLinkInterfaceRadio</name>
+<<<<<<< HEAD
                     <state>1</state>
+=======
+                    <state>0</state>
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
                 </option>
                 <option>
                     <name>CCSTLinkInterfaceCmdLine</name>
@@ -1025,7 +1047,11 @@
                 </option>
                 <option>
                     <name>CCCpuClockEdit</name>
+<<<<<<< HEAD
                     <state>180.0</state>
+=======
+                    <state></state>
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
                 </option>
                 <option>
                     <name>CCSwoClockAuto</name>
@@ -1101,7 +1127,11 @@
                 </option>
                 <option>
                     <name>CCSTLinkJtagSpeedList</name>
+<<<<<<< HEAD
                     <version>1</version>
+=======
+                    <version>0</version>
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
                     <state>0</state>
                 </option>
                 <option>
@@ -1112,10 +1142,13 @@
                     <name>CCSTLinkDebugAccessPortRadio</name>
                     <state>0</state>
                 </option>
+<<<<<<< HEAD
                 <option>
                     <name>CCSTLinkUseServerSelect</name>
                     <state>0</state>
                 </option>
+=======
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
             </data>
         </settings>
         <settings>
@@ -1127,7 +1160,11 @@
                 <debug>1</debug>
                 <option>
                     <name>CThirdPartyDriverDll</name>
+<<<<<<< HEAD
                     <state>Browse to your third-party driver</state>
+=======
+                    <state>###Uninitialized###</state>
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
                 </option>
                 <option>
                     <name>CThirdPartyLogFileCheck</name>
@@ -1173,7 +1210,11 @@
                 </option>
                 <option>
                     <name>CCMSPFetTargetVoltage</name>
+<<<<<<< HEAD
                     <state>3.0</state>
+=======
+                    <state>###Uninitialized###</state>
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
                 </option>
                 <option>
                     <name>CCMSPFetVCCDefault</name>
@@ -1218,7 +1259,11 @@
             <name>XDS100_ID</name>
             <archiveVersion>2</archiveVersion>
             <data>
+<<<<<<< HEAD
                 <version>8</version>
+=======
+                <version>6</version>
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
                 <wantNonLocal>1</wantNonLocal>
                 <debug>1</debug>
                 <option>
@@ -1231,11 +1276,19 @@
                 </option>
                 <option>
                     <name>TIPackage</name>
+<<<<<<< HEAD
                     <state>C:\ti\ccs_base</state>
                 </option>
                 <option>
                     <name>BoardFile</name>
                     <state>$TOOLKIT_DIR$\config\debugger\TexasInstruments\xds\UNKNOWN_XDS200_CJTAG.dat</state>
+=======
+                    <state></state>
+                </option>
+                <option>
+                    <name>BoardFile</name>
+                    <state></state>
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
                 </option>
                 <option>
                     <name>DoLogfile</name>
@@ -1380,6 +1433,7 @@
                     <name>CCXds100SWOPort</name>
                     <state>1</state>
                 </option>
+<<<<<<< HEAD
                 <option>
                     <name>CCXDSTargetVccEnable</name>
                     <state>0</state>
@@ -1392,6 +1446,8 @@
                     <name>OCXDSDigitalStatesConfigFile</name>
                     <state>1</state>
                 </option>
+=======
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
             </data>
         </settings>
         <debuggerPlugins>
@@ -1408,18 +1464,24 @@
                 <loadFlag>0</loadFlag>
             </plugin>
             <plugin>
+<<<<<<< HEAD
                 <file>$TOOLKIT_DIR$\plugins\rtos\FreeRtos\FreeRtosArmPlugin.ENU.ewplugin</file>
                 <loadFlag>0</loadFlag>
             </plugin>
             <plugin>
+=======
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
                 <file>$TOOLKIT_DIR$\plugins\rtos\Mbed\MbedArmPlugin.ENU.ewplugin</file>
                 <loadFlag>0</loadFlag>
             </plugin>
             <plugin>
+<<<<<<< HEAD
                 <file>$TOOLKIT_DIR$\plugins\rtos\Mbed\MbedArmPlugin2.ENU.ewplugin</file>
                 <loadFlag>0</loadFlag>
             </plugin>
             <plugin>
+=======
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
                 <file>$TOOLKIT_DIR$\plugins\rtos\OpenRTOS\OpenRTOSPlugin.ewplugin</file>
                 <loadFlag>0</loadFlag>
             </plugin>
@@ -1428,6 +1490,7 @@
                 <loadFlag>0</loadFlag>
             </plugin>
             <plugin>
+<<<<<<< HEAD
                 <file>$TOOLKIT_DIR$\plugins\rtos\SMX\smxAwareIarArm8.ewplugin</file>
                 <loadFlag>0</loadFlag>
             </plugin>
@@ -1436,6 +1499,8 @@
                 <loadFlag>0</loadFlag>
             </plugin>
             <plugin>
+=======
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
                 <file>$TOOLKIT_DIR$\plugins\rtos\ThreadX\ThreadXArmPlugin.ENU.ewplugin</file>
                 <loadFlag>0</loadFlag>
             </plugin>
@@ -1483,7 +1548,11 @@
             <name>C-SPY</name>
             <archiveVersion>2</archiveVersion>
             <data>
+<<<<<<< HEAD
                 <version>30</version>
+=======
+                <version>29</version>
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
                 <wantNonLocal>1</wantNonLocal>
                 <debug>0</debug>
                 <option>
@@ -1686,10 +1755,13 @@
                     <name>MassEraseBeforeFlashing</name>
                     <state>0</state>
                 </option>
+<<<<<<< HEAD
                 <option>
                     <name>OCMulticoreNrOfCoresSlave</name>
                     <state>1</state>
                 </option>
+=======
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
             </data>
         </settings>
         <settings>
@@ -2426,6 +2498,7 @@
             </data>
         </settings>
         <settings>
+<<<<<<< HEAD
             <name>NULINK_ID</name>
             <archiveVersion>2</archiveVersion>
             <data>
@@ -2447,6 +2520,8 @@
             </data>
         </settings>
         <settings>
+=======
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
             <name>PEMICRO_ID</name>
             <archiveVersion>2</archiveVersion>
             <data>
@@ -2475,7 +2550,11 @@
             <name>STLINK_ID</name>
             <archiveVersion>2</archiveVersion>
             <data>
+<<<<<<< HEAD
                 <version>5</version>
+=======
+                <version>4</version>
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
                 <wantNonLocal>1</wantNonLocal>
                 <debug>0</debug>
                 <option>
@@ -2573,7 +2652,11 @@
                 </option>
                 <option>
                     <name>CCSTLinkJtagSpeedList</name>
+<<<<<<< HEAD
                     <version>1</version>
+=======
+                    <version>0</version>
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
                     <state>0</state>
                 </option>
                 <option>
@@ -2584,10 +2667,13 @@
                     <name>CCSTLinkDebugAccessPortRadio</name>
                     <state>0</state>
                 </option>
+<<<<<<< HEAD
                 <option>
                     <name>CCSTLinkUseServerSelect</name>
                     <state>0</state>
                 </option>
+=======
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
             </data>
         </settings>
         <settings>
@@ -2690,7 +2776,11 @@
             <name>XDS100_ID</name>
             <archiveVersion>2</archiveVersion>
             <data>
+<<<<<<< HEAD
                 <version>8</version>
+=======
+                <version>6</version>
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
                 <wantNonLocal>1</wantNonLocal>
                 <debug>0</debug>
                 <option>
@@ -2852,6 +2942,7 @@
                     <name>CCXds100SWOPort</name>
                     <state>1</state>
                 </option>
+<<<<<<< HEAD
                 <option>
                     <name>CCXDSTargetVccEnable</name>
                     <state>0</state>
@@ -2864,6 +2955,8 @@
                     <name>OCXDSDigitalStatesConfigFile</name>
                     <state>1</state>
                 </option>
+=======
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
             </data>
         </settings>
         <debuggerPlugins>
@@ -2880,18 +2973,24 @@
                 <loadFlag>0</loadFlag>
             </plugin>
             <plugin>
+<<<<<<< HEAD
                 <file>$TOOLKIT_DIR$\plugins\rtos\FreeRtos\FreeRtosArmPlugin.ENU.ewplugin</file>
                 <loadFlag>0</loadFlag>
             </plugin>
             <plugin>
+=======
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
                 <file>$TOOLKIT_DIR$\plugins\rtos\Mbed\MbedArmPlugin.ENU.ewplugin</file>
                 <loadFlag>0</loadFlag>
             </plugin>
             <plugin>
+<<<<<<< HEAD
                 <file>$TOOLKIT_DIR$\plugins\rtos\Mbed\MbedArmPlugin2.ENU.ewplugin</file>
                 <loadFlag>0</loadFlag>
             </plugin>
             <plugin>
+=======
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
                 <file>$TOOLKIT_DIR$\plugins\rtos\OpenRTOS\OpenRTOSPlugin.ewplugin</file>
                 <loadFlag>0</loadFlag>
             </plugin>
@@ -2900,6 +2999,7 @@
                 <loadFlag>0</loadFlag>
             </plugin>
             <plugin>
+<<<<<<< HEAD
                 <file>$TOOLKIT_DIR$\plugins\rtos\SMX\smxAwareIarArm8.ewplugin</file>
                 <loadFlag>0</loadFlag>
             </plugin>
@@ -2908,6 +3008,8 @@
                 <loadFlag>0</loadFlag>
             </plugin>
             <plugin>
+=======
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
                 <file>$TOOLKIT_DIR$\plugins\rtos\ThreadX\ThreadXArmPlugin.ENU.ewplugin</file>
                 <loadFlag>0</loadFlag>
             </plugin>

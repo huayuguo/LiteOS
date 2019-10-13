@@ -34,6 +34,7 @@
 
 /* NOTE: this is a demo for adapting the SPIFFS */
 
+<<<<<<< HEAD
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -139,6 +140,25 @@ static int ret_to_errno(int ret)
     VFS_ERRNO_SET (err);
     return -err;
 }
+=======
+#include <stdio.h>
+#include <string.h>
+#include <sys/stat.h>
+#include <los_vfs.h>
+
+#if defined (__GNUC__) || defined (__CC_ARM)
+#include <sys/fcntl.h>
+#endif
+
+#ifdef __GNUC__
+#include <sys/unistd.h>
+#endif
+
+#include <los_printf.h>
+
+#include "spiffs.h"
+#include "spiffs_nucleus.h"
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 
 static int spiffs_flags_get (int oflags)
 {
@@ -191,7 +211,11 @@ static int spiffs_op_open (struct file *file, const char *path_in_mp, int flags)
 
     if (s_file < SPIFFS_OK)
     {
+<<<<<<< HEAD
         return ret_to_errno(s_file);
+=======
+        return -1;
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
     }
 
     file->f_data = (void *) (uintptr_t) s_file;
@@ -208,14 +232,20 @@ static int spiffs_op_close (struct file *file)
 {
     spiffs_file  s_file = spifd_from_file (file);
     spiffs      *fs     = (spiffs *) file->f_mp->m_data;
+<<<<<<< HEAD
     s32_t res = SPIFFS_close (fs, s_file);
 
     return ret_to_errno(res);
+=======
+
+    return (SPIFFS_close (fs, s_file) == SPIFFS_OK) ? LOS_OK : LOS_NOK;
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 }
 
 static ssize_t spiffs_op_read (struct file *file, char *buff, size_t bytes)
 {
     if (buff == NULL || bytes == 0)
+<<<<<<< HEAD
         return -EINVAL;
 
     spiffs_file  s_file = spifd_from_file (file);
@@ -223,11 +253,20 @@ static ssize_t spiffs_op_read (struct file *file, char *buff, size_t bytes)
     s32_t res = SPIFFS_read (fs, s_file, buff, bytes);
 
     return res < 0 ? ret_to_errno(res) : res;
+=======
+        return -1;
+
+    spiffs_file  s_file = spifd_from_file (file);
+    spiffs      *fs     = (spiffs *) file->f_mp->m_data;
+
+    return SPIFFS_read (fs, s_file, buff, bytes);
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 }
 
 static ssize_t spiffs_op_write (struct file *file, const char *buff, size_t bytes)
 {
     if (buff == NULL || bytes == 0)
+<<<<<<< HEAD
         return -EINVAL;
 
     spiffs_file  s_file = spifd_from_file (file);
@@ -235,12 +274,21 @@ static ssize_t spiffs_op_write (struct file *file, const char *buff, size_t byte
     s32_t res = SPIFFS_write (fs, s_file, (void *) buff, bytes);
 
     return res < 0 ? ret_to_errno(res) : res;
+=======
+        return -1;
+
+    spiffs_file  s_file = spifd_from_file (file);
+    spiffs      *fs     = (spiffs *) file->f_mp->m_data;
+
+    return SPIFFS_write (fs, s_file, (void *) buff, bytes);
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 }
 
 static off_t spiffs_op_lseek (struct file *file, off_t off, int whence)
 {
     spiffs_file  s_file = spifd_from_file (file);
     spiffs      *fs     = (spiffs *) file->f_mp->m_data;
+<<<<<<< HEAD
     s32_t res = SPIFFS_lseek (fs, s_file, off, whence);
 
     return res < 0 ? ret_to_errno(res) : res;
@@ -266,28 +314,62 @@ int spiffs_op_stat (struct mount_point *mp, const char *path_in_mp, struct stat 
     }
 
     return ret_to_errno(res);
+=======
+
+    return SPIFFS_lseek (fs, s_file, off, whence);
+}
+
+int spiffs_op_stat (struct file *file, struct stat *stat)
+{
+    spiffs_file s_file = spifd_from_file(file);
+    spiffs * fs = (spiffs *)file->f_mp->m_data;
+    spiffs_stat s;
+
+    memset(&s, 0, sizeof(s));
+    memset(stat, 0, sizeof(*stat));
+    int ret = SPIFFS_fstat(fs, s_file, &s);
+    if (ret == SPIFFS_OK)
+    {
+        stat->st_size = s.size;
+    }
+
+    return ret;
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 }
 
 static int spiffs_op_unlink (struct mount_point *mp, const char *path_in_mp)
 {
+<<<<<<< HEAD
     s32_t res = SPIFFS_remove ((spiffs *) mp->m_data, path_in_mp);
     return ret_to_errno(res);
+=======
+    return SPIFFS_remove ((spiffs *) mp->m_data, path_in_mp);
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 }
 
 static int spiffs_op_rename (struct mount_point *mp, const char *path_in_mp_old,
                              const char *path_in_mp_new)
 {
+<<<<<<< HEAD
     s32_t res = SPIFFS_rename ((spiffs *) mp->m_data, path_in_mp_old, path_in_mp_new);
     return ret_to_errno(res);
+=======
+    return SPIFFS_rename ((spiffs *) mp->m_data, path_in_mp_old, path_in_mp_new);
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 }
 
 static int spiffs_op_sync (struct file *file)
 {
     spiffs_file  s_file = spifd_from_file (file);
     spiffs      *fs     = (spiffs *) file->f_mp->m_data;
+<<<<<<< HEAD
     s32_t res = SPIFFS_fflush (fs, s_file);
 
     return res < 0 ? ret_to_errno(res) : res;
+=======
+
+    return SPIFFS_fflush (fs, s_file);
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 }
 
 static int spiffs_op_opendir (struct dir *dir, const char *path)
@@ -301,7 +383,11 @@ static int spiffs_op_opendir (struct dir *dir, const char *path)
     {
         PRINT_ERR ("fail to malloc memory in SPIFFS, <malloc.c> is needed,"
                    "make sure it is added\n");
+<<<<<<< HEAD
         return -ENOMEM;
+=======
+        return -1;
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
     }
 
     dir->d_data   = (void *) SPIFFS_opendir (fs, path, sdir);
@@ -310,7 +396,11 @@ static int spiffs_op_opendir (struct dir *dir, const char *path)
     if (dir->d_data == 0)
     {
         free (sdir);
+<<<<<<< HEAD
         return -ENOENT;
+=======
+        return -1;
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
     }
 
     return LOS_OK;
@@ -322,7 +412,11 @@ int spiffs_op_readdir (struct dir *dir, struct dirent *dent)
 
     if (NULL == SPIFFS_readdir ((spiffs_DIR *) dir->d_data, &e))
     {
+<<<<<<< HEAD
         return -ENOENT;
+=======
+        return -1;
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
     }
 
     strncpy (dent->name, (const char *) e.name, LOS_MAX_FILE_NAME_LEN - 1);
@@ -345,11 +439,19 @@ static int spiffs_op_closedir (struct dir *dir)
 {
     spiffs_DIR *sdir = (spiffs_DIR *) dir->d_data;
 
+<<<<<<< HEAD
     s32_t res = SPIFFS_closedir (sdir);
 
     free (sdir);
 
     return ret_to_errno(res);
+=======
+    SPIFFS_closedir (sdir);
+
+    free (sdir);
+
+    return 0;
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 }
 
 static struct file_ops spiffs_ops =
@@ -378,11 +480,14 @@ static struct file_system spiffs_fs =
     0
 };
 
+<<<<<<< HEAD
 static spiffs *fs_ptr = NULL;
 static u8_t *wbuf_ptr = NULL;
 static u8_t *fds_ptr = NULL;
 static u8_t *cache_ptr = NULL;
 
+=======
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 int spiffs_mount (const char *path, u32_t phys_addr, u32_t phys_size,
                   u32_t phys_erase_block, u32_t log_block_size,
                   u32_t log_page_size,
@@ -447,10 +552,13 @@ int spiffs_mount (const char *path, u32_t phys_addr, u32_t phys_size,
 
     if (ret == LOS_OK)
     {
+<<<<<<< HEAD
         fs_ptr = fs;
         wbuf_ptr = wbuf;
         fds_ptr = fds;
         cache_ptr = cache;
+=======
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
         PRINT_INFO ("spiffs mount at %s done!\n", path);
         return LOS_OK;
     }
@@ -472,6 +580,7 @@ err_free:
     return ret;
 }
 
+<<<<<<< HEAD
 int spiffs_unmount(const char *path)
 {
     if (fs_ptr)
@@ -501,6 +610,8 @@ int spiffs_unmount(const char *path)
     return 0;
 }
 
+=======
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 int spiffs_init (void)
 {
     static int spiffs_inited = FALSE;
@@ -527,3 +638,7 @@ int spiffs_init (void)
 
     return LOS_OK;
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842

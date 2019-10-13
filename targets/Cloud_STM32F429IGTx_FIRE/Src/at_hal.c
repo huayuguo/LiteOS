@@ -38,6 +38,10 @@
 #include "stm32f4xx_hal.h"
 
 extern at_task at;
+<<<<<<< HEAD
+=======
+extern at_config at_user_conf;
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 
 UART_HandleTypeDef at_usart;
 
@@ -48,9 +52,15 @@ static uint32_t s_uwIRQn = USART2_IRQn;
 uint8_t buff_full = 0;
 static uint32_t g_disscard_cnt = 0;
 
+<<<<<<< HEAD
 uint32_t wi       = 0;
 uint32_t pre_ri   = 0;/*only save cur msg start*/
 uint32_t ri       = 0;
+=======
+uint32_t wi = 0;
+uint32_t wi_bak = 0;
+uint32_t ri = 0;
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 
 
 static void at_usart_adapter(uint32_t port)
@@ -79,17 +89,25 @@ static void at_usart_adapter(uint32_t port)
 void at_irq_handler(void)
 {
     recv_buff recv_buf;
+<<<<<<< HEAD
     at_config *at_user_conf = at_get_config();
+=======
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 
     if(__HAL_UART_GET_FLAG(&at_usart, UART_FLAG_RXNE) != RESET)
     {
         at.recv_buf[wi++] = (uint8_t)(at_usart.Instance->DR & 0x00FF);
         if(wi == ri)buff_full = 1;
+<<<<<<< HEAD
         if (wi >= at_user_conf->user_buf_len)wi = 0;
+=======
+        if (wi >= at_user_conf.user_buf_len)wi = 0;
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
     }
     else if (__HAL_UART_GET_FLAG(&at_usart, UART_FLAG_IDLE) != RESET)
     {
         __HAL_UART_CLEAR_IDLEFLAG(&at_usart);
+<<<<<<< HEAD
         /*
         Ring Buffer ri------------------------>wi
 
@@ -104,6 +122,15 @@ void at_irq_handler(void)
         recv_buf.end = wi;
 
         pre_ri = recv_buf.end;
+=======
+
+        wi_bak = wi;
+
+        recv_buf.ori = ri;
+        recv_buf.end = wi;
+        //recv_buf.addr = at.recv_buf[wi];
+        ri = recv_buf.end;
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
         recv_buf.msg_type = AT_USART_RX;
 
         if(LOS_QueueWriteCopy(at.rid, &recv_buf, sizeof(recv_buff), 0) != LOS_OK)
@@ -116,12 +143,20 @@ void at_irq_handler(void)
 int32_t at_usart_init(void)
 {
     UART_HandleTypeDef *usart = &at_usart;
+<<<<<<< HEAD
     at_config *at_user_conf = at_get_config();
 
     at_usart_adapter(at_user_conf->usart_port);
 
     usart->Instance = s_pUSART;
     usart->Init.BaudRate = at_user_conf->buardrate;
+=======
+
+    at_usart_adapter(at_user_conf.usart_port);
+
+    usart->Instance = s_pUSART;
+    usart->Init.BaudRate = at_user_conf.buardrate;
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 
     usart->Init.WordLength = UART_WORDLENGTH_8B;
     usart->Init.StopBits = UART_STOPBITS_1;
@@ -151,6 +186,7 @@ void at_usart_deinit(void)
 
 void at_transmit(uint8_t *cmd, int32_t len, int flag)
 {
+<<<<<<< HEAD
     at_config *at_user_conf = at_get_config();
     
     char *line_end = at_user_conf->line_end;
@@ -158,6 +194,13 @@ void at_transmit(uint8_t *cmd, int32_t len, int flag)
     if(flag == 1)
     {
         (void)HAL_UART_Transmit(&at_usart, (uint8_t *)line_end, strlen(at_user_conf->line_end), 0xffff);
+=======
+    char *line_end = at_user_conf.line_end;
+    (void)HAL_UART_Transmit(&at_usart, (uint8_t *)cmd, len, 0xffff);
+    if(flag == 1)
+    {
+        (void)HAL_UART_Transmit(&at_usart, (uint8_t *)line_end, strlen(at_user_conf.line_end), 0xffff);
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
     }
 }
 
@@ -167,8 +210,11 @@ int read_resp(uint8_t *buf, recv_buff* recv_buf)
 
     uint32_t tmp_len = 0;
 
+<<<<<<< HEAD
     at_config *at_user_conf = at_get_config();
 
+=======
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
     if (NULL == buf)
     {
         return -1;
@@ -177,9 +223,15 @@ int read_resp(uint8_t *buf, recv_buff* recv_buf)
     {
         AT_LOG("buf maybe full,buff_full is %d",buff_full);
     }
+<<<<<<< HEAD
     //AT_LOG("wi is %d, ri is %d,pre_ri is %d, end(%d),ori(%d),buff_full is %d",
     //    wi,ri,pre_ri,recv_buf->end,recv_buf->ori,buff_full);
     
+=======
+    NVIC_DisableIRQ((IRQn_Type)s_uwIRQn);
+
+    //wi = recv_buf->end;//wi_bak
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
     if (recv_buf->end == recv_buf->ori)
     {
         len = 0;
@@ -193,7 +245,11 @@ int read_resp(uint8_t *buf, recv_buff* recv_buf)
     }
     else
     {
+<<<<<<< HEAD
         tmp_len = at_user_conf->user_buf_len - recv_buf->ori;
+=======
+        tmp_len = at_user_conf.user_buf_len - recv_buf->ori;
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
         memcpy(buf, &at.recv_buf[recv_buf->ori], tmp_len);
         memcpy(buf + tmp_len, at.recv_buf, recv_buf->end);
         len = recv_buf->end + tmp_len;
@@ -201,7 +257,11 @@ int read_resp(uint8_t *buf, recv_buff* recv_buf)
 
     ri = recv_buf->end;
 END:
+<<<<<<< HEAD
     
+=======
+    NVIC_EnableIRQ((IRQn_Type)s_uwIRQn);
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
     return len;
 }
 

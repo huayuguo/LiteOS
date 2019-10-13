@@ -87,9 +87,13 @@
 #define MBEDTLS_SSL_CLI_C
 //#define MBEDTLS_SSL_SRV_C
 #define MBEDTLS_SSL_TLS_C
+<<<<<<< HEAD
 #if !defined ( __GNUC__ )  /* GCC*/
 #define MBEDTLS_DEBUG_C
 #endif
+=======
+#define MBEDTLS_DEBUG_C
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 
 #define MBEDTLS_PLATFORM_C
 #define MBEDTLS_ENTROPY_HARDWARE_ALT
@@ -102,9 +106,13 @@
 //#define MBEDTLS_PLATFORM_FREE_MACRO            free /**< Default free macro to use, can be undefined */
 
 /* Save RAM at the expense of ROM */
+<<<<<<< HEAD
 #if !defined ( __GNUC__ )  /* GCC*/
 #define MBEDTLS_AES_ROM_TABLES
 #endif
+=======
+#define MBEDTLS_AES_ROM_TABLES
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 
 /* Save some RAM by adjusting to your exact needs */
 #define MBEDTLS_PSK_MAX_LEN    32 /* 128-bits keys are generally enough */

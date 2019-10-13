@@ -51,6 +51,10 @@ UART_HandleTypeDef huart1;
 void Debug_USART1_UART_Init(void)
 {
     huart1.Instance = USART1;
+<<<<<<< HEAD
+=======
+	huart1.gState = HAL_UART_STATE_RESET;
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
     huart1.Init.BaudRate = 115200;
     huart1.Init.WordLength = UART_WORDLENGTH_8B;
     huart1.Init.StopBits = UART_STOPBITS_1;
@@ -157,6 +161,7 @@ int fputc(int ch, FILE *f)
 #include "osport.h"
 #include "los_hwi.h"
 
+<<<<<<< HEAD
 int uart3_send(unsigned char *buf, int len);
 int uart3_recv(unsigned char *buf, int len, int timeout);
 tagRingBuf  gRcvRing;
@@ -166,10 +171,22 @@ UART_HandleTypeDef huart3;
 
 
 void uart3_irq()
+=======
+int uart1_send(unsigned char *buf, int len);
+int uart1_recv(unsigned char *buf, int len, int timeout);
+tagRingBuf  gRcvRing;
+#define CN_RING_lEN 1500
+unsigned char gRcvBuf[CN_RING_lEN];
+UART_HandleTypeDef huart1;
+
+
+void uart1_irq()
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 {
     unsigned char data;
     unsigned int flags;
 
+<<<<<<< HEAD
     flags = huart3.Instance->SR;
     if(flags & USART_SR_RXNE)
     {
@@ -188,33 +205,74 @@ void uart3_init(void)
     huart3.Init.HwFlowCtl = UART_HWCONTROL_NONE;
     huart3.Init.OverSampling = UART_OVERSAMPLING_16;
     if (HAL_UART_Init(&huart3) != HAL_OK)
+=======
+    flags = huart1.Instance->SR;
+    if(flags & USART_SR_RXNE)
+    {
+        data = (uint8_t)(huart1.Instance->DR & (uint8_t)0x00FF);
+        ring_write(&gRcvRing, &data, 1);
+    }
+}
+void uart1_init(void)
+{
+    huart1.Instance = USART1;
+    huart1.Init.BaudRate = 115200;
+    huart1.Init.WordLength = UART_WORDLENGTH_8B;
+    huart1.Init.StopBits = UART_STOPBITS_1;
+    huart1.Init.Parity = UART_PARITY_NONE;
+    huart1.Init.Mode = UART_MODE_TX_RX;
+    huart1.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+    huart1.Init.OverSampling = UART_OVERSAMPLING_16;
+    if (HAL_UART_Init(&huart1) != HAL_OK)
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
     {
         _Error_Handler(__FILE__, __LINE__);
     }
     ring_init(&gRcvRing, gRcvBuf, CN_RING_lEN, 0, 0);
 
 
+<<<<<<< HEAD
     LOS_HwiCreate(39, 4, 0, uart3_irq, 0);
     /* Enable the UART Error Interrupt: (Frame error, noise error, overrun error) */
     SET_BIT(huart3.Instance->CR3, USART_CR3_EIE);
 
     /* Enable the UART Parity Error and Data Register not empty Interrupts */
     SET_BIT(huart3.Instance->CR1, USART_CR1_PEIE | USART_CR1_RXNEIE);
+=======
+    LOS_HwiCreate(37, 4, 0, uart1_irq, 0);
+    /* Enable the UART Error Interrupt: (Frame error, noise error, overrun error) */
+    SET_BIT(huart1.Instance->CR3, USART_CR3_EIE);
+
+    /* Enable the UART Parity Error and Data Register not empty Interrupts */
+    SET_BIT(huart1.Instance->CR1, USART_CR1_PEIE | USART_CR1_RXNEIE);
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 }
 
 
 
+<<<<<<< HEAD
 int uart3_send(unsigned char *buf, int len)
 {
     int ret = 0;
 
     if(HAL_OK == HAL_UART_Transmit(&huart3, buf, len, 0xFFFF))
+=======
+int uart1_send(unsigned char *buf, int len)
+{
+    int ret = 0;
+
+    if(HAL_OK == HAL_UART_Transmit(&huart1, buf, len, 0xFFFF))
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
     {
         ret = len;
     }
     return ret;
 }
+<<<<<<< HEAD
 int uart3_recv(unsigned char *buf, int len, int timeout)
+=======
+int uart1_recv(unsigned char *buf, int len, int timeout)
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 {
     int datalen = 0;
     int ret = 0;
@@ -234,6 +292,7 @@ int uart3_recv(unsigned char *buf, int len, int timeout)
 
 void uart_init(void)
 {
+<<<<<<< HEAD
     uart3_init();
 }
 int uart_write(char *buf, int len, int timeout)
@@ -243,6 +302,17 @@ int uart_write(char *buf, int len, int timeout)
 int uart_read(char *buf, int len, int timeout)
 {
     return uart3_recv((unsigned char *)buf, len, timeout);
+=======
+    uart1_init();
+}
+int uart_write(char *buf, int len, int timeout)
+{
+    return uart1_send((unsigned char *)buf, len);
+}
+int uart_read(char *buf, int len, int timeout)
+{
+    return uart1_recv((unsigned char *)buf, len, timeout);
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 }
 
 #endif

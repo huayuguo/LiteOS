@@ -297,6 +297,7 @@ void LOS_Panic(const char * fmt, ...);
  *Cortex-M异常具体类型:硬fault
  */
 #define OS_EXC_CAUSE_HARDFAULT     19
+<<<<<<< HEAD
 
 /**
  *@ingroup los_exc
@@ -344,6 +345,55 @@ void LOS_Panic(const char * fmt, ...);
  *@ingroup los_exc
  *Cortex-M异常具体类型:致命错误
  */
+=======
+
+/**
+ *@ingroup los_exc
+ *Cortex-M异常具体类型:存储器管理fault
+ */
+#define OS_EXC_CAUSE_MEMFAULT      20
+
+/**
+ *@ingroup los_exc
+ *Cortex-M异常具体类型:总线fault
+ */
+#define OS_EXC_CAUSE_BUSFAULT      21
+
+/**
+ *@ingroup los_exc
+ *Cortex-M异常具体类型:使用fault
+ */
+#define OS_EXC_CAUSE_USAGEFAULT    22
+
+/**
+ *@ingroup los_exc
+ *Cortex-M异常具体类型:SVC调用
+ */
+#define OS_EXC_CAUSE_SVC           23
+
+/**
+ *@ingroup los_exc
+ *Cortex-M异常具体类型:调试事件导致的硬fault
+ */
+#define OS_EXC_CAUSE_DEBUGEVT      24
+
+/**
+ *@ingroup los_exc
+ *Cortex-M异常具体类型:取向量时发生的硬fault
+ */
+#define OS_EXC_CAUSE_VECTBL        25
+
+/**
+ *@ingroup los_exc
+ *Cortex-M异常具体类型:任务处理函数退出
+ */
+#define OS_EXC_CAUSE_TASK_EXIT     26
+
+/**
+ *@ingroup los_exc
+ *Cortex-M异常具体类型:致命错误
+ */
+>>>>>>> 39b93f91c06e3a2e8bb9dcf26ef94d954f00d842
 #define OS_EXC_CAUSE_FATAL_ERR     27
 
 /**
